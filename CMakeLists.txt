@@ -12,7 +12,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # Source files
-add_executable(soniq
+add_executable(maze_solver
     src/main.c
     src/maze_parser.c
 )
@@ -20,7 +20,6 @@ add_executable(soniq
 # Include directory
 target_include_directories(maze_solver PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-# Compiler flags for max safety & speed
 target_compile_options(maze_solver PRIVATE
     -Wall
     -Wextra
