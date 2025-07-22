@@ -36,7 +36,7 @@ int read_file(int argc, char* argv[]) {
 
     char buffer[MAX_HEIGHT + 2]; // room for newline and null terminator
     while (fgets(buffer, sizeof(buffer), maze_file)) {
-        ++maze_height;
+        int y = maze_height;
         buffer[strcspn(buffer, "\r\n")] = 0;
         if (maze_height == 0) {
             maze_width = strlen(buffer);
@@ -47,13 +47,12 @@ int read_file(int argc, char* argv[]) {
         }
 
         for (size_t x = 0, string_length = strlen(buffer); x < string_length; ++x) {
-            maze[maze_height][x].x = buffer[x];
-            maze[maze_height][x].y = maze_height;
-            maze[maze_height][x].is_wall = (buffer[x] = '#') ? 1 : 0;
-            maze[maze_height][x].visited = 0;
-
+            maze[y][x].x = buffer[x];
+            maze[y][x].y = maze_height;
+            maze[y][x].is_wall = (buffer[x] = '#') ? 1 : 0;
+            maze[y][x].visited = 0;
+            maze[y][x].parent = NULL;
         }
+        ++maze_height;
     }
-
-
 }
