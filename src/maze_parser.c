@@ -39,6 +39,7 @@ int load_maze(const char* filename, Maze* maze) {
         }
         ++height;
     }
+    maze->height = height;
     fclose(maze_file);
     return 0;
 }
