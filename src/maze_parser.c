@@ -37,9 +37,21 @@ int read_file(int argc, char* argv[]) {
     char buffer[MAX_HEIGHT + 2]; // room for newline and null terminator
     while (fgets(buffer, sizeof(buffer), maze_file)) {
         ++maze_height;
-        size_t temp_width = strlen(buffer);
-        if (temp_width > maze_width) {
-            maze_width = temp_width;
+        buffer[strcspn(buffer, "\r\n")] = 0;
+        if (maze_height == 0) {
+            maze_width = strlen(buffer);
+        } else {
+            if (strlen(buffer) != maze_width) {
+                printf("Inconsistent line lengths in %s", argv[1]);
+            }
+        }
+
+        for (size_t x = 0, string_length = strlen(buffer); x < string_length; ++x) {
+            maze[maze_height][x].x = buffer[x];
+            maze[maze_height][x].y = maze_height;
+            maze[maze_height][x].is_wall = (buffer[x] = '#') ? 1 : 0;
+            maze[maze_height][x].visited = 0;
+
         }
     }
 
