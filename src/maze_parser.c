@@ -26,6 +26,7 @@ int load_maze(const char* filename, Maze* maze) {
         } else {
             if (strlen(buffer) != maze->width) {
                 printf("Inconsistent line lengths in %s", filename);
+                fclose(maze_file);
                 return 2;
             }
         }
