@@ -47,12 +47,14 @@ int read_file(int argc, char* argv[]) {
         }
 
         for (size_t x = 0, string_length = strlen(buffer); x < string_length; ++x) {
-            maze[y][x].x = buffer[x];
-            maze[y][x].y = maze_height;
-            maze[y][x].is_wall = (buffer[x] = '#') ? 1 : 0;
+            maze[y][x].x = x;
+            maze[y][x].y = y;
+            maze[y][x].is_wall = (buffer[x] == '#') ? 1 : 0;
             maze[y][x].visited = 0;
             maze[y][x].parent = NULL;
         }
         ++maze_height;
     }
+    fclose(maze_file);
+    return 0;
 }
