@@ -30,13 +30,13 @@ int read_file(int argc, char* argv[]) {
 
     char buffer[MAX_HEIGHT];
     FILE* maze_file = fopen(argv[1], "r");
-    if (maze_file) {
-        while (fgets(buffer, sizeof(buffer), maze_file)) {
-            ++maze_height;
-        }
-    } else {
+    if (!maze_file) {
         printf("Error opening file %s: %s\n", argv[1], strerror(errno));
         return 1;
+    }
+
+    while (fgets(buffer, sizeof(buffer), maze_file)) {
+        ++maze_height;
     }
 
 }
