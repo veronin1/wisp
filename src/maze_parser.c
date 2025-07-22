@@ -28,15 +28,20 @@ int read_file(int argc, char* argv[]) {
     }
 
 
-    char buffer[MAX_HEIGHT];
     FILE* maze_file = fopen(argv[1], "r");
     if (!maze_file) {
         printf("Error opening file %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
 
+    char buffer[MAX_HEIGHT + 2]; // room for newline and null terminator
     while (fgets(buffer, sizeof(buffer), maze_file)) {
         ++maze_height;
+        size_t temp_width = strlen(buffer);
+        if (temp_width > maze_width) {
+            maze_width = temp_width;
+        }
     }
+
 
 }
