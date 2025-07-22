@@ -1,6 +1,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct Vertex {
     int x;
@@ -21,13 +22,19 @@ int maze_height = 0;
 
 
 int read_file(int argc, char* argv[]) {
-    if (argv < 2) {
+    if (argc < 2) {
         printf("Usage: %s <maze_file>\n", argv[0]);
         return 1;
     }
 
-    FILE* maze = fopen(argv[1], "r");
-    if (!maze) {
+
+    char buffer[MAX_HEIGHT];
+    FILE* maze_file = fopen(argv[1], "r");
+    if (maze_file) {
+        while (fgets(buffer, sizeof(buffer), maze_file)) {
+            ++maze_height;
+        }
+    } else {
         printf("Error opening file %s: %s\n", argv[1], strerror(errno));
         return 1;
     }
