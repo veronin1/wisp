@@ -50,3 +50,12 @@ Vertex* pop(VertexStack* stack) {
   stack->top--;
   return top;
 }
+
+void push(VertexStack* stack, Vertex* value) {
+  if (!stack) {
+    return;
+  }
+
+  stack->data[stack->top] = value;
+  stack->top++;
+}
