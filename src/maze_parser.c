@@ -88,7 +88,7 @@ void print_maze(const Maze* maze) {
         putchar('E');
       } else if (current->is_wall) {
         putchar('#');
-      } else if (current->visited) {
+      } else if (current->on_path) {
         putchar('.');
       } else {
         putchar(' ');
