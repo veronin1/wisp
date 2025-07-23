@@ -17,7 +17,7 @@ int dfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      break;
+      return 1;
     }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
