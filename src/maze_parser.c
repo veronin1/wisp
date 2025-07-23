@@ -50,15 +50,15 @@ int load_maze(const char* filename, Maze* maze) {
           break;
         case 'E':
           maze->grid[height][col].is_wall = 0;
-          maze->start = &maze->grid[height][col];
+          maze->end = &maze->grid[height][col];
           break;
         default:
           maze->grid[height][col].is_wall = 0;
           break;
       }
     }
+    ++height;
   }
-  ++height;
 
   maze->height = height;
   fclose(maze_file);
@@ -80,7 +80,7 @@ void print_maze(const Maze* maze) {
       } else {
         putchar(' ');
       }
-      putchar('\n');
     }
+    putchar('\n');
   }
 }
