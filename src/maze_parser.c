@@ -44,3 +44,19 @@ int load_maze(const char* filename, Maze* maze) {
   fclose(maze_file);
   return 0;
 }
+
+void print_maze(const Maze* maze) {
+  for (size_t i = 0; i < maze->height; ++i) {
+    for (size_t j = 0; j < maze->width; ++i) {
+      const Vertex* current = &maze->grid[i][j];
+      if (current->is_wall) {
+        printf("#");
+      } else if (current->visited) {
+        printf(" ");
+      } else {
+        printf(" ");
+      }
+      printf("\n");
+    }
+  }
+}
