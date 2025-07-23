@@ -36,7 +36,6 @@ int load_maze(const char* filename, Maze* maze) {
     for (size_t col = 0; col < width; ++col) {
       maze->grid[height][col].x = col;
       maze->grid[height][col].y = height;
-      maze->grid[height][col].is_wall = (buffer[col] == '#') ? 1 : 0;
       maze->grid[height][col].visited = 0;
       maze->grid[height][col].parent = NULL;
 
