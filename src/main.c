@@ -18,12 +18,10 @@ int main(int argc, char* argv[]) {
   }
 
   if (dfs(&maze)) {
-    printf("Path found");
+    print_maze(&maze);
   } else {
-    printf("No path found");
+    printf("No path found\n");
   }
-
-  print_maze(&maze);
 
   return 0;
 }
