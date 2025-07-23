@@ -19,9 +19,6 @@ int dfs(Maze* maze) {
     if (current == maze->end) {
       break;
     }
-    if (!current->visited) {
-      current->visited = 1;
-    }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
       int neighbourY = (int)current->y + directionY[i];
@@ -53,6 +50,10 @@ Vertex* pop(VertexStack* stack) {
 
 void push(VertexStack* stack, Vertex* value) {
   if (!stack) {
+    return;
+  }
+
+  if (stack->top >= (size_t)MAX_WIDTH * MAX_HEIGHT) {
     return;
   }
 
