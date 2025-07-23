@@ -15,6 +15,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 add_executable(maze_solver
     src/main.c
     src/maze_parser.c
+    src/dfs.c
 )
 
 # Include directory

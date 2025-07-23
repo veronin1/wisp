@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "dfs.h"
 #include "maze_parse.h"
 
 int main(int argc, char* argv[]) {
@@ -14,6 +15,12 @@ int main(int argc, char* argv[]) {
     printf("Failed to load maze from file '%s' with error code %d\n", argv[1],
            result);
     return 1;
+  }
+
+  if (dfs(&maze)) {
+    printf("Path found");
+  } else {
+    printf("No path found");
   }
 
   print_maze(&maze);
