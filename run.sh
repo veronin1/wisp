@@ -1,4 +1,4 @@
 #!/bin/sh
 
 cd bin
-./maze_solver ../maze/21x11.txt
+./maze_solver ../maze/99x99.txt
