@@ -47,7 +47,7 @@ int load_maze(const char* filename, Maze* maze) {
 
 void print_maze(const Maze* maze) {
   for (size_t i = 0; i < maze->height; ++i) {
-    for (size_t j = 0; j < maze->width; ++i) {
+    for (size_t j = 0; j < maze->width; ++j) {
       const Vertex* current = &maze->grid[i][j];
       if (current->is_wall) {
         printf("#");
