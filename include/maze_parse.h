@@ -6,17 +6,17 @@
 #define MAX_HEIGHT 100
 
 typedef struct Vertex {
-    size_t x;
-    size_t y;
-    int is_wall;
-    int visited;
-    struct Vertex *parent;
+  size_t x;
+  size_t y;
+  int is_wall;
+  int visited;
+  struct Vertex *parent;
 } Vertex;
 
 typedef struct {
-    Vertex grid[MAX_HEIGHT][MAX_WIDTH];
-    size_t width;
-    size_t height;
+  Vertex grid[MAX_HEIGHT][MAX_WIDTH];
+  size_t width;
+  size_t height;
 } Maze;
 
 int load_maze(const char *filename, Maze *maze);
