@@ -14,7 +14,7 @@ int dfs(Maze* maze) {
 }
 
 Vertex* pop(VertexStack* stack) {
-  if (!stack || stack->top) {
+  if (!stack || stack->top == 0) {
     return NULL;
   }
   Vertex* top = stack->data[stack->top - 1];
