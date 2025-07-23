@@ -61,6 +61,13 @@ int load_maze(const char* filename, Maze* maze) {
   }
 
   maze->height = height;
+
+  if (!maze->start) {
+    printf("Warning: Maze has no start point 'S'\n");
+  }
+  if (!maze->end) {
+    printf("Warning: Maze has no end point 'E'\n");
+  }
   fclose(maze_file);
   return 0;
 }
