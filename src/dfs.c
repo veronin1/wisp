@@ -1,4 +1,5 @@
 #include "dfs.h"
+#include <stddef.h>
 #include <stdlib.h>
 #include "maze_parse.h"
 
@@ -22,6 +23,13 @@ int dfs(Maze* maze) {
       current->visited = 1;
     }
     for (size_t i = 0; i < 4; ++i) {
+      int neighbourX = (int)current->x + directionX[i];
+      int neighbourY = (int)current->y + directionY[i];
+
+      if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
+          neighbourY < (int)maze->height) {
+        // further ! !
+      }
     }
   }
   return 0;
