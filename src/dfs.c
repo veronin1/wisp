@@ -1,4 +1,5 @@
 #include "dfs.h"
+#include <stdlib.h>
 #include "maze_parse.h"
 
 int dfs(Maze* maze) {
@@ -18,19 +19,19 @@ int dfs(Maze* maze) {
       current->visited = 1;
     }
     for (size_t i = 0; i < 4; ++i) {
-      Vertex* nup = NULL;
+      Vertex* nup = malloc(sizeof(Vertex*));
       nup->x = current->x;
       nup->y = current->y - 1;
 
-      Vertex* ndown = NULL;
+      Vertex* ndown = malloc(sizeof(Vertex*));
       ndown->x = current->x;
       ndown->y = current->y + 1;
 
-      Vertex* nleft = NULL;
+      Vertex* nleft = malloc(sizeof(Vertex*));
       nleft->x = current->x - 1;
       nleft->y = current->y;
 
-      Vertex* nright = NULL;
+      Vertex* nright = malloc(sizeof(Vertex*));
       nright->x = current->x + 1;
       nleft->y = current->y;
     }
