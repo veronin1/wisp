@@ -15,6 +15,7 @@ int dfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
+      retrace_path(current, maze);
       return 1;
     }
     for (size_t i = 0; i < 4; ++i) {
