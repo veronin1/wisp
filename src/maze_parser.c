@@ -69,14 +69,18 @@ void print_maze(const Maze* maze) {
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
       const Vertex* current = &maze->grid[i][j];
-      if (current->is_wall) {
-        printf("#");
+      if (current == maze->start) {
+        putchar('S');
+      } else if (current == maze->end) {
+        putchar('E');
+      } else if (current->is_wall) {
+        putchar('#');
       } else if (current->visited) {
-        printf(".");
+        putchar('.');
       } else {
-        printf(" ");
+        putchar(' ');
       }
-      printf("\n");
+      putchar('\n');
     }
   }
 }
