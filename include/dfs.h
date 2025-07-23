@@ -1,7 +1,7 @@
 #ifndef DFS_H
 #define DFS_H
 
-#include "maze_parse.h"
+#include "maze.h"
 
 typedef struct {
   Vertex *data[MAX_WIDTH * MAX_HEIGHT];

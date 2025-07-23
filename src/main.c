@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "dfs.h"
+#include "maze.h"
 #include "maze_parse.h"
 
 int main(int argc, char* argv[]) {

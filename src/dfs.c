@@ -1,5 +1,5 @@
 #include "dfs.h"
-#include "maze_parse.h"
+#include "maze.h"
 
 int directionX[4] = {0, 0, -1, 1};
 int directionY[4] = {-1, 1, 0, 0};
