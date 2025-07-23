@@ -28,7 +28,13 @@ int dfs(Maze* maze) {
 
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
-        // further ! !
+        Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
+
+        if (!neighbour->is_wall && !neighbour->visited) {
+          neighbour->visited = 1;
+          neighbour->parent = current;
+          push(&stack, neighbour);
+        }
       }
     }
   }
