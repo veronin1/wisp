@@ -16,5 +16,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  print_maze(&maze);
+
   return 0;
 }
