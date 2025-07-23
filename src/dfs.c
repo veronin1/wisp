@@ -18,7 +18,7 @@ Vertex* pop(VertexStack* stack) {
     return NULL;
   }
   Vertex* top = stack->data[stack->top - 1];
-  stack->data[stack->top - 1] = 0;
+  stack->data[stack->top - 1] = NULL;
   stack->top--;
   return top;
 }
