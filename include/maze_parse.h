@@ -17,8 +17,11 @@ typedef struct {
   Vertex grid[MAX_HEIGHT][MAX_WIDTH];
   size_t width;
   size_t height;
+  Vertex *start;
+  Vertex *end;
 } Maze;
 
 int load_maze(const char *filename, Maze *maze);
+void print_maze(const Maze *maze);
 
 #endif
