@@ -37,6 +37,7 @@ int load_maze(const char* filename, Maze* maze) {
       maze->grid[height][col].x = col;
       maze->grid[height][col].y = height;
       maze->grid[height][col].visited = 0;
+      maze->grid[height][col].on_path = 0;
       maze->grid[height][col].parent = NULL;
 
       char current = buffer[col];
@@ -87,7 +88,7 @@ void print_maze(const Maze* maze) {
         putchar('E');
       } else if (current->is_wall) {
         putchar('#');
-      } else if (current->visited) {
+      } else if (current->on_path) {
         putchar('.');
       } else {
         putchar(' ');

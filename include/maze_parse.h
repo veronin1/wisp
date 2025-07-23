@@ -10,6 +10,7 @@ typedef struct Vertex {
   size_t y;
   int is_wall;
   int visited;
+  int on_path;
   struct Vertex *parent;
 } Vertex;
 
