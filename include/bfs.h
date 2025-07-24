@@ -13,6 +13,5 @@ typedef struct {
 
 int bfs(Maze *maze);
 Vertex *dequeue(VertexQueue *queue);
-void *enqueue(VertexQueue *queue, Vertex *element);
-
+void enqueue(VertexQueue *queue, Vertex *element);
 #endif
