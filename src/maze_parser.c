@@ -96,6 +96,6 @@ void print_maze(const Maze* maze) {
         putchar(' ');
       }
     }
+    putchar('\n');
   }
-  putchar('\n');
 }
