@@ -1,6 +1,6 @@
 #include "bfs.h"
-#include "draw_path.h"
 #include "maze.h"
+#include "retrace_path.h"
 
 int directionX[4] = {0, 0, -1, 1};
 int directionY[4] = {-1, 1, 0, 0};

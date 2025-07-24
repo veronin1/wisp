@@ -1,4 +1,4 @@
-#include "draw_path.h"
+#include "retrace_path.h"
 
 void retrace_path(Vertex* end, Maze* maze) {
   Vertex* current = end;

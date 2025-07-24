@@ -1,5 +1,5 @@
-#ifndef DRAW_PATH_H
-#define DRAW_PATH_H
+#ifndef RETRACE_PATH_H
+#define RETRACE_PATH_H
 
 #include "maze.h"
 
