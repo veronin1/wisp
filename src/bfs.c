@@ -33,6 +33,7 @@ int bfs(Maze* maze) {
 
         if (!neighbour->visited && !neighbour->is_wall) {
           neighbour->visited = 1;
+          neighbour->parent = current;
           enqueue(&queue, neighbour);
         }
       }
@@ -60,7 +61,7 @@ void enqueue(VertexQueue* queue, Vertex* element) {
   if (queue->size == 0) {
     queue->front = queue->rear = 0;
   } else {
-    queue->rear = (queue->rear + 1) & queue->capacity;
+    queue->rear = (queue->rear + 1) % queue->capacity;
   }
 
   queue->data[queue->rear] = element;
