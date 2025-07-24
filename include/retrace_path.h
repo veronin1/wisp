@@ -3,6 +3,6 @@
 
 #include "maze.h"
 
-void retrace_path(Vertex *end, Maze *maze);
+size_t retrace_path(Vertex *end, Maze *maze);
 
 #endif

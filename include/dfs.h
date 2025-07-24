@@ -8,8 +8,7 @@ typedef struct {
   size_t top;
 } VertexStack;
 
-int dfs(Maze *maze);
-void retrace_path(Vertex *end, Maze *maze);
+size_t dfs(Maze *maze);
 Vertex *pop(VertexStack *stack);
 void push(VertexStack *stack, Vertex *value);
 
