@@ -1,8 +1,9 @@
 #include "dfs.h"
 #include "maze.h"
+#include "retrace_path.h"
 
-int directionX[4] = {0, 0, -1, 1};
-int directionY[4] = {-1, 1, 0, 0};
+static int directionX[4] = {0, 0, -1, 1};
+static int directionY[4] = {-1, 1, 0, 0};
 
 int dfs(Maze* maze) {
   VertexStack stack;
@@ -35,18 +36,6 @@ int dfs(Maze* maze) {
     }
   }
   return 0;
-}
-
-void retrace_path(Vertex* end, Maze* maze) {
-  Vertex* current = end;
-  while (current != NULL && current != maze->start) {
-    current->parent->on_path = 1;
-    current = current->parent;
-  }
-
-  if (current == maze->start) {
-    current->on_path = 1;
-  }
 }
 
 Vertex* pop(VertexStack* stack) {
