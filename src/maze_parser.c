@@ -90,8 +90,6 @@ void print_maze(const Maze* maze) {
         putchar('#');
       } else if (current->on_path) {
         putchar('.');
-      } else if (current->visited) {
-        putchar('v');
       } else {
         putchar(' ');
       }
