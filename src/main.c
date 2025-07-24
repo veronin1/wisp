@@ -1,11 +1,13 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "dfs.h"
 #include "maze_parse.h"
 
+int validate_input(int argc, char* argv[]);
+
 int main(int argc, char* argv[]) {
-  if (argc < 2) {
-    printf("Usage: %s <maze_file>\n", argv[0]);
+  if (!validate_input(argc, argv)) {
     return 1;
   }
 
@@ -14,7 +16,7 @@ int main(int argc, char* argv[]) {
   if (result != 0) {
     printf("Failed to load maze from file '%s' with error code %d\n", argv[1],
            result);
-    return 1;
+    return 2;
   }
 
   if (dfs(&maze)) {
@@ -23,5 +25,20 @@ int main(int argc, char* argv[]) {
     printf("No path found\n");
   }
 
+  return 0;
+}
+
+int validate_input(int argc, char* argv[]) {
+  if (argc < 3) {
+    printf("Usage: %s (-bfs|-dfs) <maze_file>\n", argv[0]);
+    return 1;
+  }
+
+  char* type = argv[1];
+
+  if ((strcmp(type, "-bfs") != 0) && (strcmp(type, "-dfs") != 0)) {
+    printf("Invalid search type. Use -bfs or -dfs.\n");
+    return 1;
+  }
   return 0;
 }
