@@ -4,7 +4,7 @@
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/OFI6c2ujqAeuyQTigQqgTjHNO.svg)](https://asciinema.org/a/OFI6c2ujqAeuyQTigQqgTjHNO)
+[![asciicast](https://asciinema.org/a/oAf7IK0auHZlbtkUwObF90hYE.svg)](https://asciinema.org/a/oAf7IK0auHZlbtkUwObF90hYE)
 
 ## Requirements
 
