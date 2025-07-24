@@ -5,7 +5,7 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-int bfs(Maze* maze) {
+size_t bfs(Maze* maze) {
   VertexQueue queue;
   queue.front = 0;
   queue.rear = 0;
@@ -13,6 +13,7 @@ int bfs(Maze* maze) {
   queue.capacity = (size_t)MAX_WIDTH * MAX_HEIGHT;
   queue.data[queue.rear++] = maze->start;
   queue.size++;
+  maze->start->visited = 1;
 
   while (queue.size != 0) {
     Vertex* current = dequeue(&queue);
@@ -21,8 +22,7 @@ int bfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      retrace_path(current, maze);
-      return 1;
+      return retrace_path(current, maze);
     }
 
     for (size_t i = 0; i < 4; ++i) {
