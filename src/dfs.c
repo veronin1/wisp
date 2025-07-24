@@ -5,7 +5,7 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-int dfs(Maze* maze) {
+size_t dfs(Maze* maze) {
   VertexStack stack;
   stack.top = 0;
   stack.data[stack.top++] = maze->start;
@@ -16,8 +16,7 @@ int dfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      retrace_path(current, maze);
-      return 1;
+      return retrace_path(current, maze);
     }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
