@@ -21,14 +21,18 @@ int main(int argc, char* argv[]) {
   }
 
   if (strcmp(argv[1], "-bfs") == 0) {
-    if (bfs(&maze)) {
-      print_maze(&maze);
+    size_t steps = bfs(&maze);
+    if (steps >= 0) {
+      printf("Steps %i\n", steps);
+      // print_maze(&maze);
     } else {
       printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dfs") == 0) {
-    if (dfs(&maze)) {
-      print_maze(&maze);
+    size_t steps = dfs(&maze);
+    if (steps >= 0) {
+      printf("Steps %i\n", steps);
+      // print_maze(&maze);
     } else {
       printf("No path found\n");
     }
