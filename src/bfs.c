@@ -1,4 +1,5 @@
 #include "bfs.h"
+#include "draw_path.h"
 #include "maze.h"
 
 int directionX[4] = {0, 0, -1, 1};
@@ -20,6 +21,7 @@ int bfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
+      retrace_path(current, maze);
       return 1;
     }
 
