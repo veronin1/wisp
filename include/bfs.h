@@ -5,10 +5,12 @@
 
 typedef struct {
   Vertex *data[MAX_WIDTH * MAX_HEIGHT];
-  size_t front;
-  size_t rear;
+  int front;
+  int rear;
   size_t size;
   size_t capacity;
 } VertexQueue;
+
+Vertex *dequeue(VertexQueue *queue);
 
 #endif
