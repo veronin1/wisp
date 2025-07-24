@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <bfs.h>
 #include "dfs.h"
 #include "maze_parse.h"
 
@@ -19,10 +20,18 @@ int main(int argc, char* argv[]) {
     return 2;
   }
 
-  if (dfs(&maze)) {
-    print_maze(&maze);
-  } else {
-    printf("No path found\n");
+  if (strcmp(argv[1], "bfs") == 0) {
+    if (bfs(&maze)) {
+      print_maze(&maze);
+    } else {
+      printf("No path found\n");
+    }
+  } else if (strcmp(argv[1], "dfs") == 0) {
+    if (dfs(&maze)) {
+      print_maze(&maze);
+    } else {
+      printf("No path found\n");
+    }
   }
 
   return 0;
