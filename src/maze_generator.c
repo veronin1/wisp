@@ -7,7 +7,7 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-void dfs_maze_generate(size_t size) {
+Maze dfs_maze_generate(size_t size) {
   Maze maze;
 
   if (size > MAX_HEIGHT || size > MAX_WIDTH) {
@@ -31,6 +31,8 @@ void dfs_maze_generate(size_t size) {
   size_t startY = (size_t)rand() % maze.height;
 
   dfs_maze_generate_cell(&maze, startX, startY);
+
+  return maze;
 }
 
 void dfs_maze_generate_cell(Maze* maze, size_t posX, size_t posY) {
@@ -47,12 +49,24 @@ void dfs_maze_generate_cell(Maze* maze, size_t posX, size_t posY) {
   }
 
   for (size_t i = 0; i < 4; ++i) {
-    int neighbourX = (int)current->x + (2 * directionX[i]);
-    int neighbourY = (int)current->y + (2 * directionY[i]);
+    int randomDirection = directions[i];
+    int neighbourX = (int)current->x + (2 * directionX[randomDirection]);
+    int neighbourY = (int)current->y + (2 * directionY[randomDirection]);
+    int wallX = (int)current->x + directionX[randomDirection];
+    int wallY = (int)current->y + directionY[randomDirection];
 
     if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
         neighbourY < (int)maze->height) {
       Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
+      Vertex* intermediateNeighbour = &maze->grid[wallY][wallX];
+
+      if (neighbour->visited == 0 && intermediateNeighbour->visited == 0) {
+        neighbour->visited = 1;
+        neighbour->is_wall = 0;
+        intermediateNeighbour->is_wall = 0;
+
+        dfs_maze_generate_cell(maze, (size_t)neighbourX, (size_t)neighbourY);
+      }
     }
   }
 }
