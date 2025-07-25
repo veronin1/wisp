@@ -4,6 +4,7 @@
 #include "bfs.h"
 #include "dfs.h"
 #include "globals.h"
+#include "maze_generator.h"
 #include "maze_parse.h"
 #include "retrace_path.h"
 
@@ -14,6 +15,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  /*
   Maze maze = {0};
   int result = load_maze(argv[2], &maze);
   if (result != 0) {
@@ -21,6 +23,11 @@ int main(int argc, char* argv[]) {
            result);
     return 2;
   }
+    */
+
+  const size_t mazeSize = 25;
+  Maze maze = dfs_maze_generate(mazeSize);
+  print_maze(&maze);
 
   if (strcmp(argv[1], "-bfs") == 0) {
     if (bfs(&maze)) {
