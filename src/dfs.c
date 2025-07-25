@@ -1,16 +1,18 @@
 #include "dfs.h"
+#include "globals.h"
 #include "maze.h"
+
+#define DFS_SUCCESS 1
+#define DFS_FAILURE 0
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-size_t dfs(Maze* maze) {
+int dfs(Maze* maze) {
   VertexStack stack;
   stack.top = 0;
   stack.data[stack.top++] = maze->start;
   maze->start->visited = 1;
-
-  size_t steps = 0;
 
   while (stack.top != 0) {
     Vertex* current = pop(&stack);
@@ -18,7 +20,7 @@ size_t dfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      return steps;
+      return DFS_SUCCESS;
     }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
@@ -35,9 +37,9 @@ size_t dfs(Maze* maze) {
         }
       }
     }
-    ++steps;
+    ++totalSteps;
   }
-  return 0;
+  return DFS_FAILURE;
 }
 
 Vertex* pop(VertexStack* stack) {
