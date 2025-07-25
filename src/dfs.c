@@ -1,6 +1,5 @@
 #include "dfs.h"
 #include "maze.h"
-#include "retrace_path.h"
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
@@ -10,13 +9,15 @@ size_t dfs(Maze* maze) {
   stack.top = 0;
   stack.data[stack.top++] = maze->start;
 
+  size_t steps = 0;
+
   while (stack.top != 0) {
     Vertex* current = pop(&stack);
     if (!current) {
       continue;
     }
     if (current == maze->end) {
-      return retrace_path(current, maze);
+      return steps;
     }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
@@ -33,6 +34,7 @@ size_t dfs(Maze* maze) {
         }
       }
     }
+    ++steps;
   }
   return 0;
 }

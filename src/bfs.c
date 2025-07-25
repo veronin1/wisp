@@ -1,6 +1,5 @@
 #include "bfs.h"
 #include "maze.h"
-#include "retrace_path.h"
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
@@ -15,6 +14,8 @@ size_t bfs(Maze* maze) {
   queue.size++;
   maze->start->visited = 1;
 
+  size_t steps = 0;
+
   while (queue.size != 0) {
     Vertex* current = dequeue(&queue);
 
@@ -22,7 +23,7 @@ size_t bfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      return retrace_path(current, maze);
+      return steps;
     }
 
     for (size_t i = 0; i < 4; ++i) {
@@ -40,6 +41,7 @@ size_t bfs(Maze* maze) {
         }
       }
     }
+    ++steps;
   }
   return 0;
 }
