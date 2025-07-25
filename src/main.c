@@ -4,6 +4,7 @@
 #include "bfs.h"
 #include "dfs.h"
 #include "maze_parse.h"
+#include "retrace_path.h"
 
 int validate_input(int argc, char* argv[]);
 
@@ -21,20 +22,28 @@ int main(int argc, char* argv[]) {
   }
 
   if (strcmp(argv[1], "-bfs") == 0) {
-    size_t steps = bfs(&maze);
-    if (steps >= 0) {
-      printf("Steps %i\n", steps);
-      // print_maze(&maze);
+    size_t totalSteps = bfs(&maze);
+    if (maze.end != NULL) {
+      size_t pathSteps = retrace_path(maze.end, &maze);
+      if (totalSteps >= 0) {
+        printf("Total Steps Taken %zu\n", totalSteps);
+        printf("Path Steps: %zu\n", pathSteps);
+        // print_maze(&maze);
+      }
     } else {
       printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dfs") == 0) {
-    size_t steps = dfs(&maze);
-    if (steps >= 0) {
-      printf("Steps %i\n", steps);
-      // print_maze(&maze);
-    } else {
-      printf("No path found\n");
+    size_t totalSteps = dfs(&maze);
+    if (maze.end != NULL) {
+      size_t pathSteps = retrace_path(maze.end, &maze);
+      if (totalSteps >= 0) {
+        printf("Total Steps Taken %zu\n", totalSteps);
+        printf("Path Steps: %zu\n", pathSteps);
+        // print_maze(&maze);
+      } else {
+        printf("No path found\n");
+      }
     }
   }
 
