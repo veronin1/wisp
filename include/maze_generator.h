@@ -3,5 +3,5 @@
 
 #include <stddef.h>
 void maze_generator(size_t size);
-
+void random_number_generator(void);
 #endif

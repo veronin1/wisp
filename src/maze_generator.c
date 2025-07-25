@@ -1,4 +1,6 @@
 #include "maze_generator.h"
+#include <stdint.h>
+#include <time.h>
 #include "maze.h"
 
 void maze_generator(size_t size) {
@@ -19,4 +21,19 @@ void maze_generator(size_t size) {
       maze.grid[pos_y][pos_x].x = pos_x;
     }
   }
+}
+
+/* seed with current time
+shift left by numberOfShift bits
+perform bitwise xor
+*/
+void random_number_generator(void) {
+  const size_t numberOfShits = 13;
+  // seed
+  time_t currentTime = time(NULL);
+  int64_t originalSeed = (int64_t)currentTime;
+
+  int64_t newSeed = originalSeed << numberOfShits;
+
+  newSeed = newSeed ^ originalSeed;
 }
