@@ -27,9 +27,11 @@ int main(int argc, char* argv[]) {
       if (maze.end != NULL) {
         size_t pathSteps = retrace_path(maze.end, &maze);
         if (totalSteps >= 0) {
+          printf("===== BFT =====\n");
           printf("Total Steps Taken %zu\n", totalSteps);
-          printf("Path Steps: %zu\n", pathSteps);
-          // print_maze(&maze);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+          print_maze(&maze);
         }
       }
     } else {
@@ -40,9 +42,11 @@ int main(int argc, char* argv[]) {
       if (maze.end != NULL) {
         size_t pathSteps = retrace_path(maze.end, &maze);
         if (totalSteps >= 0) {
+          printf("=== DFT ===\n");
           printf("Total Steps Taken %zu\n", totalSteps);
-          printf("Path Steps: %zu\n", pathSteps);
-          // print_maze(&maze);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+          print_maze(&maze);
         }
       } else {
         printf("No path found\n");
