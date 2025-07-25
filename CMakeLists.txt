@@ -15,6 +15,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 add_executable(wisp
     src/main.c
     src/globals.c
+    src/maze_generator.c
     src/maze_parser.c
     src/retrace_path.c
     src/dfs.c
