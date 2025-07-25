@@ -8,6 +8,7 @@ size_t dfs(Maze* maze) {
   VertexStack stack;
   stack.top = 0;
   stack.data[stack.top++] = maze->start;
+  maze->start->visited = 1;
 
   size_t steps = 0;
 
