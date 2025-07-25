@@ -1,17 +1,18 @@
 #include "maze_generator.h"
+#include "maze.h"
+
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-#include "maze.h"
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
 Maze dfs_maze_generate(size_t size) {
-  Maze maze;
+  Maze maze = {0};
 
   if (size > MAX_HEIGHT || size > MAX_WIDTH) {
-    return;
+    return maze;
   }
 
   maze.width = maze.height = size;
