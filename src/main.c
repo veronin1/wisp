@@ -3,7 +3,9 @@
 
 #include "bfs.h"
 #include "dfs.h"
+#include "globals.h"
 #include "maze_parse.h"
+#include "retrace_path.h"
 
 int validate_input(int argc, char* argv[]);
 
@@ -22,15 +24,33 @@ int main(int argc, char* argv[]) {
 
   if (strcmp(argv[1], "-bfs") == 0) {
     if (bfs(&maze)) {
-      print_maze(&maze);
+      if (maze.end != NULL) {
+        size_t pathSteps = retrace_path(maze.end, &maze);
+        if (totalSteps >= 0) {
+          printf("===== BFT =====\n");
+          printf("Total Steps Taken %zu\n", totalSteps);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+          print_maze(&maze);
+        }
+      }
     } else {
       printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dfs") == 0) {
     if (dfs(&maze)) {
-      print_maze(&maze);
-    } else {
-      printf("No path found\n");
+      if (maze.end != NULL) {
+        size_t pathSteps = retrace_path(maze.end, &maze);
+        if (totalSteps >= 0) {
+          printf("=== DFT ===\n");
+          printf("Total Steps Taken %zu\n", totalSteps);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+          print_maze(&maze);
+        }
+      } else {
+        printf("No path found\n");
+      }
     }
   }
 

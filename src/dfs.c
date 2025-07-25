@@ -1,6 +1,9 @@
 #include "dfs.h"
+#include "globals.h"
 #include "maze.h"
-#include "retrace_path.h"
+
+#define DFS_SUCCESS 1
+#define DFS_FAILURE 0
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
@@ -9,6 +12,7 @@ int dfs(Maze* maze) {
   VertexStack stack;
   stack.top = 0;
   stack.data[stack.top++] = maze->start;
+  maze->start->visited = 1;
 
   while (stack.top != 0) {
     Vertex* current = pop(&stack);
@@ -16,8 +20,7 @@ int dfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      retrace_path(current, maze);
-      return 1;
+      return DFS_SUCCESS;
     }
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current->x + directionX[i];
@@ -34,8 +37,9 @@ int dfs(Maze* maze) {
         }
       }
     }
+    ++totalSteps;
   }
-  return 0;
+  return DFS_FAILURE;
 }
 
 Vertex* pop(VertexStack* stack) {

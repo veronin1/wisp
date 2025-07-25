@@ -1,9 +1,12 @@
 #include "bfs.h"
+#include "globals.h"
 #include "maze.h"
-#include "retrace_path.h"
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
+
+#define BFS_SUCCESS 1
+#define BFS_FAILURE 0
 
 int bfs(Maze* maze) {
   VertexQueue queue;
@@ -13,6 +16,7 @@ int bfs(Maze* maze) {
   queue.capacity = (size_t)MAX_WIDTH * MAX_HEIGHT;
   queue.data[queue.rear++] = maze->start;
   queue.size++;
+  maze->start->visited = 1;
 
   while (queue.size != 0) {
     Vertex* current = dequeue(&queue);
@@ -21,8 +25,7 @@ int bfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      retrace_path(current, maze);
-      return 1;
+      return BFS_SUCCESS;
     }
 
     for (size_t i = 0; i < 4; ++i) {
@@ -40,8 +43,9 @@ int bfs(Maze* maze) {
         }
       }
     }
+    ++totalSteps;
   }
-  return 0;
+  return BFS_FAILURE;
 }
 
 Vertex* dequeue(VertexQueue* queue) {

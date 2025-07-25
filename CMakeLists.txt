@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(maze_solver C)
+project(wisp C)
 
 # Use Clang explicitly
 set(CMAKE_C_COMPILER clang)
@@ -12,8 +12,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # Source files
-add_executable(maze_solver
+add_executable(wisp
     src/main.c
+    src/globals.c
     src/maze_parser.c
     src/retrace_path.c
     src/dfs.c
@@ -21,9 +22,9 @@ add_executable(maze_solver
 )
 
 # Include directory
-target_include_directories(maze_solver PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(wisp PRIVATE ${CMAKE_SOURCE_DIR}/include)
 
-target_compile_options(maze_solver PRIVATE
+target_compile_options(wisp PRIVATE
     -Wall
     -Wextra
     -Wpedantic
