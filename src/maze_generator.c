@@ -1,5 +1,6 @@
 #include "maze_generator.h"
 #include <time.h>
+#include <unistd.h>
 #include "maze.h"
 
 void maze_generator(size_t size) {
@@ -29,9 +30,12 @@ perform bitwise xor
 int64_t random_number_generator(void) {
   const size_t shiftAmount = 13;
   const size_t iterations = 8;
-  // seed
+
+  /* get current time in seconds
+  get process ID and combine into a seed */
   time_t currentTime = time(NULL);
-  int64_t seed = (int64_t)currentTime;
+  pid_t pid = getpid();
+  int64_t seed = ((int64_t)currentTime) ^ (int64_t)(pid);
 
   for (size_t i = 0; i < iterations; ++i) {
     if (i % 2 == 0) {
