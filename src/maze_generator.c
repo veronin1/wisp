@@ -11,7 +11,7 @@ static int directionY[4] = {-1, 1, 0, 0};
 Maze dfs_maze_generate(size_t size) {
   Maze maze = {0};
 
-  if (size > MAX_HEIGHT || size > MAX_WIDTH) {
+  if (size > MAX_HEIGHT || size > MAX_WIDTH || size == 0) {
     return maze;
   }
 
@@ -32,6 +32,9 @@ Maze dfs_maze_generate(size_t size) {
   size_t startY = (size_t)rand() % maze.height;
 
   dfs_maze_generate_cell(&maze, startX, startY);
+
+  maze.start = &maze.grid[1][1];
+  maze.end = &maze.grid[maze.height - 2][maze.width - 2];
 
   return maze;
 }
