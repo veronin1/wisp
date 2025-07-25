@@ -23,19 +23,15 @@ void maze_generator(size_t size) {
   }
 }
 
-/* seed with current time
-shift left by numberOfShift bits
-perform bitwise xor
-*/
 int64_t random_number_generator(void) {
-  const size_t shiftAmount = 13;
-  const size_t iterations = 8;
-
-  /* get current time in seconds
-  get process ID and combine into a seed */
   time_t currentTime = time(NULL);
   pid_t pid = getpid();
   int64_t seed = ((int64_t)currentTime) ^ (int64_t)(pid);
+
+  /*clamp iterations to 5-19
+  and shiftAmount to 1-63 */
+  const size_t iterations = (size_t)(pid % 15) + 5;
+  const size_t shiftAmount = (size_t)(currentTime % 63) + 1;
 
   for (size_t i = 0; i < iterations; ++i) {
     if (i % 2 == 0) {
