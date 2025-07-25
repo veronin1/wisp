@@ -38,6 +38,14 @@ void dfs_maze_generate_cell(Maze* maze, size_t posX, size_t posY) {
   current->visited = 1;
   current->is_wall = 0;
 
+  int directions[4] = {0, 1, 2, 3};
+  for (size_t i = 3; i > 0; --i) {
+    int randomIndex = rand() % ((int)i + 1);
+    int temp = directions[i];
+    directions[i] = directions[randomIndex];
+    directions[randomIndex] = temp;
+  }
+
   for (size_t i = 0; i < 4; ++i) {
     int neighbourX = (int)current->x + (2 * directionX[i]);
     int neighbourY = (int)current->y + (2 * directionY[i]);
