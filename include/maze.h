@@ -1,8 +1,8 @@
 #ifndef MAZE_H
 #define MAZE_H
 
-#define MAX_WIDTH 1000
-#define MAX_HEIGHT 1000
+#define MAX_WIDTH 100
+#define MAX_HEIGHT 100
 
 #include <stddef.h>
 
