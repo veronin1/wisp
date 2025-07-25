@@ -1,5 +1,4 @@
 #include "maze_generator.h"
-#include <stdint.h>
 #include <time.h>
 #include "maze.h"
 
@@ -27,13 +26,19 @@ void maze_generator(size_t size) {
 shift left by numberOfShift bits
 perform bitwise xor
 */
-void random_number_generator(void) {
-  const size_t numberOfShits = 13;
+int64_t random_number_generator(void) {
+  const size_t shiftAmount = 13;
+  const size_t iterations = 8;
   // seed
   time_t currentTime = time(NULL);
-  int64_t originalSeed = (int64_t)currentTime;
+  int64_t seed = (int64_t)currentTime;
 
-  int64_t newSeed = originalSeed << numberOfShits;
-
-  newSeed = newSeed ^ originalSeed;
+  for (size_t i = 0; i < iterations; ++i) {
+    if (i % 2 == 0) {
+      seed ^= seed >> shiftAmount;
+    } else {
+      seed ^= seed << shiftAmount;
+    }
+  }
+  return seed;
 }
