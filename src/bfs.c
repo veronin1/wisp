@@ -1,10 +1,14 @@
 #include "bfs.h"
+#include "globals.h"
 #include "maze.h"
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-size_t bfs(Maze* maze) {
+#define BFS_SUCCESS 1
+#define BFS_FAILURE 0
+
+int bfs(Maze* maze) {
   VertexQueue queue;
   queue.front = 0;
   queue.rear = 0;
@@ -14,8 +18,6 @@ size_t bfs(Maze* maze) {
   queue.size++;
   maze->start->visited = 1;
 
-  size_t steps = 0;
-
   while (queue.size != 0) {
     Vertex* current = dequeue(&queue);
 
@@ -23,7 +25,7 @@ size_t bfs(Maze* maze) {
       continue;
     }
     if (current == maze->end) {
-      return steps;
+      return BFS_SUCCESS;
     }
 
     for (size_t i = 0; i < 4; ++i) {
@@ -41,9 +43,9 @@ size_t bfs(Maze* maze) {
         }
       }
     }
-    ++steps;
+    ++totalSteps;
   }
-  return 0;
+  return BFS_FAILURE;
 }
 
 Vertex* dequeue(VertexQueue* queue) {

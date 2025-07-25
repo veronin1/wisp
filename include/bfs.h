@@ -11,7 +11,7 @@ typedef struct {
   size_t capacity;
 } VertexQueue;
 
-size_t bfs(Maze *maze);
+int bfs(Maze *maze);
 Vertex *dequeue(VertexQueue *queue);
 void enqueue(VertexQueue *queue, Vertex *element);
 #endif
