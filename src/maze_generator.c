@@ -1,9 +1,13 @@
 #include "maze_generator.h"
+#include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
 #include "maze.h"
 
-void maze_generator(size_t size) {
+static int directionX[4] = {0, 0, -1, 1};
+static int directionY[4] = {-1, 1, 0, 0};
+
+void dfs_maze_generate(size_t size) {
   Maze maze;
 
   if (size > MAX_HEIGHT || size > MAX_WIDTH) {
@@ -19,6 +23,28 @@ void maze_generator(size_t size) {
       maze.grid[pos_y][pos_x].visited = 0;
       maze.grid[pos_y][pos_x].y = pos_y;
       maze.grid[pos_y][pos_x].x = pos_x;
+    }
+  }
+
+  srand((uint)random_number_generator());
+  size_t startX = (size_t)rand() % maze.width;
+  size_t startY = (size_t)rand() % maze.height;
+
+  dfs_maze_generate_cell(&maze, startX, startY);
+}
+
+void dfs_maze_generate_cell(Maze* maze, size_t posX, size_t posY) {
+  Vertex* current = &maze->grid[posY][posX];
+  current->visited = 1;
+  current->is_wall = 0;
+
+  for (size_t i = 0; i < 4; ++i) {
+    int neighbourX = (int)current->x + (2 * directionX[i]);
+    int neighbourY = (int)current->y + (2 * directionY[i]);
+
+    if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
+        neighbourY < (int)maze->height) {
+      Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
     }
   }
 }
