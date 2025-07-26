@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 
   const size_t mazeSize = 25;
   Maze maze = dfs_maze_generate(mazeSize);
-  print_maze(&maze);
+  reset_visited(&maze);
 
   if (strcmp(argv[1], "-bfs") == 0) {
     if (bfs(&maze)) {
