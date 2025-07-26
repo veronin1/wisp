@@ -75,8 +75,10 @@ void enqueue(VertexQueue* queue, Vertex* element) {
 }
 
 void reset_visited(Maze* maze) {
-  for (size_t y = 0; y < maze->height; ++y) {
-    for (size_t x = 0; x < maze->width; ++x) {
+  for (/* NOLINT(readability-identifier-length) */ size_t y = 0;
+       y < maze->height; ++y) {
+    for (/* NOLINT(readability-identifier-length) */ size_t x = 0;
+         x < maze->width; ++x) {
       maze->grid[y][x].visited = 0;
       maze->grid[y][x].parent = NULL;
     }
