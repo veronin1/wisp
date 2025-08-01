@@ -22,6 +22,22 @@ int dijkstra(Maze *maze)
   heap.size = 0;
 }
 
+void heapify_up(Heap *heap, size_t index) {
+  if (index == 0) {
+    return;
+  }
+
+  while (index > 0) {
+    int parent = (index - 1) / 2;
+    if (heap->data[index].distance > heap->data[parent].distance) {
+      HeapNode *tmp = heap->data[index];
+      heap->data[parent] = tmp;
+      index = parent;
+    } else {
+      break;
+    }
+}
+
 int push(Heap *heap, Vertex* vertex, int distance) {
   if (heap->size == MAX_HEAP_SIZE) {
     return DIJKSTRA_FAILURE;
