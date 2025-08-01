@@ -30,7 +30,8 @@ void heapify_up(Heap *heap, size_t index) {
   while (index > 0) {
     int parent = (index - 1) / 2;
     if (heap->data[index].distance > heap->data[parent].distance) {
-      HeapNode *tmp = heap->data[index];
+      HeapNode tmp = heap->data[index];
+      heap->data[index] = heap->data[parent]
       heap->data[parent] = tmp;
       index = parent;
     } else {
