@@ -20,7 +20,10 @@ int dijkstra(Maze *maze)
 {
   MinHeap heap;
   heap.size = 0;
+  
 }
+
+
 
 void heapify_up(Heap *heap, size_t index) {
   if (index == 0) {
@@ -29,7 +32,7 @@ void heapify_up(Heap *heap, size_t index) {
 
   while (index > 0) {
     int parent = (index - 1) / 2;
-    if (heap->data[index].distance > heap->data[parent].distance) {
+    if (heap->data[index].distance < heap->data[parent].distance) {
       HeapNode tmp = heap->data[index];
       heap->data[index] = heap->data[parent]
       heap->data[parent] = tmp;
@@ -37,6 +40,7 @@ void heapify_up(Heap *heap, size_t index) {
     } else {
       break;
     }
+  }
 }
 
 int push(Heap *heap, Vertex* vertex, int distance) {
@@ -45,8 +49,8 @@ int push(Heap *heap, Vertex* vertex, int distance) {
   }
 
   heap->data[heap->size].vertex = vertex;
-  heap->data[heap->data].distance = distance;
-  hepaify_up(haap, heap->size);
+  heap->data[heap->size].distance = distance;
+  hepaify_up(heap, heap->size);
   heap->size++;
   return DIJKSTRA_SUCCESS;
 }
