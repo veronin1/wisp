@@ -23,7 +23,37 @@ int dijkstra(Maze *maze)
   
 }
 
+HeapNode extract_min(Heap *heap) {
+  HeapNode *current = heap->data[0];
 
+
+}
+
+void heapify_down(Heap *heap, size_t index) {
+    while (1) {
+        size_t leftChild = 2 * index + 1;
+        size_t rightChild = 2 * index + 2;
+        size_t selected = index;
+
+        if (leftChild < heap->size && heap->data[leftChild].distance < heap->data[selected].distance) {
+            selected = leftChild;
+        }
+
+        if (rightChild < heap->size && heap->data[rightChild].distance < heap->data[selected].distance) {
+            selected = rightChild;
+        }
+
+        if (selected == index) {
+            break;
+        }
+
+        HeapNode tmp = heap->data[selected];
+        heap->data[selected] = heap->data[index];
+        heap->data[index] = tmp;
+
+        index = selected;
+    }
+}
 
 void heapify_up(Heap *heap, size_t index) {
   if (index == 0) {
