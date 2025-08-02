@@ -20,6 +20,10 @@ int dijkstra(Maze *maze)
 {
   MinHeap heap;
   heap.size = 0;
+
+  push(heap, maze->start, 0);
+
+  // for each vertex v in grapch.vertices
   
 }
 
