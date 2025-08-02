@@ -39,6 +39,9 @@ int dijkstra(Maze* maze) {
 
   while (heap.size != 0) {
     HeapNode minNode = extract_min(&heap);
+    if (minNode.distance > dist[minNode.vertex->y][minNode.vertex->x]) {
+      continue;
+    }
 
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)minNode.vertex->x + directionX[i];
