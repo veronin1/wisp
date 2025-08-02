@@ -46,6 +46,13 @@ int dijkstra(Maze* maze) {
       continue;
     }
 
+    if (minNode.vertex->visited) {
+      continue;
+    }
+
+    minNode.vertex->visited = 1;
+    totalSteps++;
+
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)minNode.vertex->x + directionX[i];
       int neighbourY = (int)minNode.vertex->y + directionY[i];
@@ -53,7 +60,7 @@ int dijkstra(Maze* maze) {
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
         Vertex* neighbor = &maze->grid[neighbourY][neighbourX];
-        if (neighbor->is_wall) {
+        if (neighbor->is_wall || neighbor->visited) {
           continue;
         }
 
@@ -73,7 +80,6 @@ int dijkstra(Maze* maze) {
         }
       }
     }
-    totalSteps++;
   }
 
   if (maze->end && dist[maze->end->y][maze->end->x] != INT_MAX) {
