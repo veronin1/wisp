@@ -11,9 +11,19 @@ int dijkstra(Maze* maze) {
   MinHeap heap;
   heap.size = 0;
 
-  push(heap, maze->start, 0);
+  push(&heap, maze->start, 0);
 
-  // for each vertex v in grapch.vertices
+  // for each vertex v in graph.vertices
+  for (size_t i = 0; i < maze->height; ++i) {
+    for (size_t j = 0; j < maze->width; ++j) {
+      HeapNode node;
+      *node.vertex = maze->grid[i][j];
+      node.distance = INFINITY;
+      push(&heap, node.vertex, node.distance);
+    }
+  }
+
+  return DIJKSTRA_SUCCESS;
 }
 
 HeapNode extract_min(MinHeap* heap) {
