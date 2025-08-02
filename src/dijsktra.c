@@ -7,6 +7,9 @@
 #define DIJKSTRA_SUCCESS 1
 #define DIJKSTRA_FAILURE 0
 
+static int directionX[4] = {0, 0, -1, 1};
+static int directionY[4] = {-1, 1, 0, 0};
+
 int dijkstra(Maze* maze) {
   MinHeap heap;
   heap.size = 0;
@@ -22,6 +25,26 @@ int dijkstra(Maze* maze) {
         continue;
       }
       push(&heap, currentVertex, dist);
+    }
+  }
+
+  while (heap.size != 0) {
+    HeapNode minNode = extract_min(&heap);
+    Vertex* minVertex = minNode.vertex;
+
+    for (size_t i = 0; i < 4; ++i) {
+      int neighbourX = (int)minVertex->x + directionX[i];
+      int neighbourY = (int)minVertex->y + directionY[i];
+
+      if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
+          neighbourY < (int)maze->height) {
+        Vertex* neighbourVert = &maze->grid[neighbourY][neighbourX];
+        HeapNode* tmp = &heap.data[neighbourY][neighbourX];
+        // 1 as maze is unweighted
+        int alt = minNode.distance + 1;
+        if (alt < tmp->distance) {
+        }
+      }
     }
   }
 
