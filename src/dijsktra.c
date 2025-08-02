@@ -10,7 +10,12 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-int prev[MAX_HEIGHT][MAX_WIDTH];
+typedef struct {
+  int x;
+  int y;
+} Prev;
+
+Prev prev[MAX_HEIGHT][MAX_WIDTH];
 int dist[MAX_HEIGHT][MAX_WIDTH];
 
 int dijkstra(Maze* maze) {
@@ -24,7 +29,8 @@ int dijkstra(Maze* maze) {
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
       if (&maze->grid[i][j] != maze->start) {
-        prev[i][j] = -1;
+        prev[i][j].x = -1;
+        prev[i][j].y = -1;
         dist[i][j] = INT_MAX;
         push(&heap, &maze->grid[i][j], dist[i][j]);
       }
@@ -43,18 +49,18 @@ int dijkstra(Maze* maze) {
         // 1 as maze is unweighted
         int alt = minNode.distance + 1;
         if (alt < dist[neighbourX][neighbourY]) {
-          prev[neighbourX] = minNode.vertex->x;
-          prev[neighbourY] = minNode.vertex->y;
+          prev[neighbourY][neighbourX].x = (int)minNode.vertex->x;
+          prev[neighbourY][neighbourX].y = (int)minNode.vertex->y;
 
           dist[neighbourX][neighbourY] = alt;
+          push(&heap, &maze->grid[neighbourX][neighbourY], alt);
+
           // Q.decrease_priority(v, alt);
         }
       }
     }
   }
-}
-
-return DIJKSTRA_SUCCESS;
+  return DIJKSTRA_SUCCESS;
 }
 
 HeapNode extract_min(MinHeap* heap) {
