@@ -22,9 +22,6 @@ int dijkstra(Maze* maze) {
   MinHeap heap;
   heap.size = 0;
 
-  push(&heap, maze->start, 0);
-  dist[maze->start->y][maze->start->x] = 0;
-
   // for each vertex  v in Graph
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
@@ -32,10 +29,12 @@ int dijkstra(Maze* maze) {
         prev[i][j].x = -1;
         prev[i][j].y = -1;
         dist[i][j] = INT_MAX;
-        push(&heap, &maze->grid[i][j], dist[i][j]);
       }
     }
   }
+
+  push(&heap, maze->start, 0);
+  dist[maze->start->y][maze->start->x] = 0;
 
   while (heap.size != 0) {
     HeapNode minNode = extract_min(&heap);
