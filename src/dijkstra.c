@@ -52,6 +52,11 @@ int dijkstra(Maze* maze) {
 
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
+        Vertex* neighbor = &maze->grid[neighbourY][neighbourX];
+        if (neighbor->is_wall) {
+          continue;
+        }
+
         // 1 as maze is unweighted
         int alt = minNode.distance + 1;
         if (alt < dist[neighbourY][neighbourX]) {
