@@ -20,6 +20,7 @@ add_executable(wisp
     src/retrace_path.c
     src/dfs.c
     src/bfs.c
+    src/dijkstra.c
 )
 
 # Include directory

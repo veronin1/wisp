@@ -16,9 +16,10 @@ typedef struct {
 } MinHeap;
 
 int dijkstra(Maze *maze);
-HeapNode extract_min(Heap *heap);
-void heapify_down(Heap *heap, size_t index);
-void heapify_up(Heap *heap, size_t index);
-int push(Heap *heap, Vertex* vertex, int distance);
+HeapNode extract_min(MinHeap *heap);
+void decrease_priority(Vertex* vertex, int distance);
+void heapify_down(MinHeap *heap, size_t index);
+void heapify_up(MinHeap *heap, size_t index);
+int heapPush(MinHeap *heap, Vertex* vertex, int distance);
 
 #endif
