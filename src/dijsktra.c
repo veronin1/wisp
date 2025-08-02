@@ -34,6 +34,8 @@ int dijkstra(Maze* maze) {
   }
 
   push(&heap, maze->start, 0);
+  prev[maze->start->y][maze->start->x].x = -1;
+  prev[maze->start->y][maze->start->x].y = -1;
   dist[maze->start->y][maze->start->x] = 0;
 
   while (heap.size != 0) {
