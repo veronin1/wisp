@@ -1,6 +1,8 @@
-#include <limits.h>
 #include "dijkstra.h"
+#include "globals.h"
 #include "maze.h"
+
+#include <limits.h>
 
 #define MAX_HEAP_SIZE (MAX_WIDTH * MAX_HEIGHT)
 
@@ -33,7 +35,7 @@ int dijkstra(Maze* maze) {
     }
   }
 
-  push(&heap, maze->start, 0);
+  heapPush(&heap, maze->start, 0);
   prev[maze->start->y][maze->start->x].x = -1;
   prev[maze->start->y][maze->start->x].y = -1;
   dist[maze->start->y][maze->start->x] = 0;
@@ -52,7 +54,7 @@ int dijkstra(Maze* maze) {
           neighbourY < (int)maze->height) {
         // 1 as maze is unweighted
         int alt = minNode.distance + 1;
-        if (alt < dist[neighbourX][neighbourY]) {
+        if (alt < dist[neighbourY][neighbourX]) {
           prev[neighbourY][neighbourX].x = (int)minNode.vertex->x;
           prev[neighbourY][neighbourX].y = (int)minNode.vertex->y;
 
@@ -61,11 +63,12 @@ int dijkstra(Maze* maze) {
           // parent pointer for retrace path
           maze->grid[neighbourY][neighbourX].parent = minNode.vertex;
 
-          push(&heap, &maze->grid[neighbourY][neighbourX], alt);
+          heapPush(&heap, &maze->grid[neighbourY][neighbourX], alt);
           // Q.decrease_priority(v, alt);
         }
       }
     }
+    totalSteps++;
   }
 
   if (maze->end && dist[maze->end->y][maze->end->x] != INT_MAX) {
@@ -134,7 +137,7 @@ void heapify_up(MinHeap* heap, size_t index) {
   }
 }
 
-int push(MinHeap* heap, Vertex* vertex, int distance) {
+int heapPush(MinHeap* heap, Vertex* vertex, int distance) {
   if ((int)heap->size == MAX_HEAP_SIZE) {
     return DIJKSTRA_FAILURE;
   }

@@ -20,6 +20,6 @@ HeapNode extract_min(MinHeap *heap);
 void decrease_priority(Vertex* vertex, int distance);
 void heapify_down(MinHeap *heap, size_t index);
 void heapify_up(MinHeap *heap, size_t index);
-int push(MinHeap *heap, Vertex* vertex, int distance);
+int heapPush(MinHeap *heap, Vertex* vertex, int distance);
 
 #endif
