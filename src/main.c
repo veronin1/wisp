@@ -81,19 +81,20 @@ int main(int argc, char* argv[]) {
 
     return 0;
   }
+}
 
-  int validate_input(int argc, char* argv[]) {
-    if (argc != 3) {
-      printf("Usage: %s ( -bfs| -dfs| -dijkstra) <maze_file>\n", argv[0]);
-      return 0;
-    }
-
-    char* type = argv[1];
-
-    if ((strcmp(type, "-bfs") != 0) && (strcmp(type, "-dfs") != 0) &&
-        (strcmp(type, "-dijkstra") != 0)) {
-      printf("Invalid search type. Use -bfs, -dfs or -dijkstra.\n");
-      return 0;
-    }
-    return 1;
+int validate_input(int argc, char* argv[]) {
+  if (argc != 3) {
+    printf("Usage: %s ( -bfs| -dfs| -dijkstra) <maze_file>\n", argv[0]);
+    return 0;
   }
+
+  char* type = argv[1];
+
+  if ((strcmp(type, "-bfs") != 0) && (strcmp(type, "-dfs") != 0) &&
+      (strcmp(type, "-dijkstra") != 0)) {
+    printf("Invalid search type. Use -bfs, -dfs or -dijkstra.\n");
+    return 0;
+  }
+  return 1;
+}
