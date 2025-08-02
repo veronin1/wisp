@@ -1,4 +1,4 @@
-#include <math.h>
+#include <limits.h>
 #include "dijkstra.h"
 #include "maze.h"
 
@@ -16,10 +16,9 @@ int dijkstra(Maze* maze) {
   // for each vertex v in graph.vertices
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
-      HeapNode node;
-      *node.vertex = maze->grid[i][j];
-      node.distance = INFINITY;
-      push(&heap, node.vertex, node.distance);
+      Vertex* currentVertex = &maze->grid[i][j];
+      int dist = INT_MAX;
+      push(&heap, currentVertex, dist);
     }
   }
 
