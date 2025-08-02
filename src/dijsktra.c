@@ -56,8 +56,8 @@ int dijkstra(Maze* maze) {
           prev[neighbourY][neighbourX].x = (int)minNode.vertex->x;
           prev[neighbourY][neighbourX].y = (int)minNode.vertex->y;
 
-          dist[neighbourX][neighbourY] = alt;
-          push(&heap, &maze->grid[neighbourX][neighbourY], alt);
+          dist[neighbourY][neighbourX] = alt;
+          push(&heap, &maze->grid[neighbourY][neighbourX], alt);
 
           // Q.decrease_priority(v, alt);
         }
