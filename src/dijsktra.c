@@ -18,9 +18,10 @@ int dijkstra(Maze* maze) {
     for (size_t j = 0; j < maze->width; ++j) {
       Vertex* currentVertex = &maze->grid[i][j];
       int dist = INT_MAX;
-      if (!currentVertex->is_wall) {
-        push(&heap, currentVertex, dist);
+      if (currentVertex->is_wall) {
+        continue;
       }
+      push(&heap, currentVertex, dist);
     }
   }
 
