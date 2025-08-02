@@ -57,8 +57,11 @@ int dijkstra(Maze* maze) {
           prev[neighbourY][neighbourX].y = (int)minNode.vertex->y;
 
           dist[neighbourY][neighbourX] = alt;
-          push(&heap, &maze->grid[neighbourY][neighbourX], alt);
 
+          // parent pointer for retrace path
+          maze->grid[neighbourY][neighbourX].parent = minNode.vertex;
+
+          push(&heap, &maze->grid[neighbourY][neighbourX], alt);
           // Q.decrease_priority(v, alt);
         }
       }
