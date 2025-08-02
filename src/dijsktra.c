@@ -24,9 +24,11 @@ int dijkstra(Maze *maze)
 }
 
 HeapNode extract_min(Heap *heap) {
-  HeapNode *current = heap->data[0];
-
-  
+  HeapNode *min = heap->data[0];
+  heap->data[0] = heap->data[heap->size - 1];
+  heap->size--;
+  heapify_down(heap, 0);
+  return min;
 }
 
 void heapify_down(Heap *heap, size_t index) {
