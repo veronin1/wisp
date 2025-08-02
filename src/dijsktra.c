@@ -67,7 +67,12 @@ int dijkstra(Maze* maze) {
       }
     }
   }
-  return DIJKSTRA_SUCCESS;
+
+  if (maze->end && dist[maze->end->y][maze->end->x] != INT_MAX) {
+    return DIJKSTRA_SUCCESS;
+  }
+
+  return DIJKSTRA_FAILURE;
 }
 
 HeapNode extract_min(MinHeap* heap) {
