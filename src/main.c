@@ -93,6 +93,7 @@ int validate_input(int argc, char* argv[]) {
 
   char* type = argv[1];
 
+  // Maze generation
   if (strcmp(type, "-gen") == 0) {
     if (argc != 4) {
       printf("Usage: %s -gen <size> <file_to_create>", argv[0]);
@@ -110,6 +111,7 @@ int validate_input(int argc, char* argv[]) {
     return 1;
   }
 
+  // Searching algorithms
   if (strcmp(type, "-bfs") == 0 || strcmp(type, "-dfs") == 0 ||
       strcmp(type, "-dijkstra") == 0) {
     if (argc != 3) {
