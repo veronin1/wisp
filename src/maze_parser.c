@@ -106,9 +106,15 @@ void maze_to_file(const Maze* maze, const char* location) {
 
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
-      if (maze->grid[i][j].is_wall) {
+      if (maze->start == &maze->grid[i][j]) {
+        fprintf(mazeFile, "S");
+      } else if (maze->end == &maze->grid[i][j]) {
+        fprintf(mazeFile, "E");
+      }
+      z if (maze->grid[i][j].is_wall) {
         fprintf(mazeFile, "#");
-      } else {
+      }
+      else {
         fprintf(mazeFile, " ");
       }
     }
