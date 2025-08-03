@@ -27,6 +27,7 @@ int main(int argc, char* argv[]) {
     const size_t mazeSize = (size_t)argv[2];
     maze = dfs_maze_generate(mazeSize);
     reset_visited(&maze);
+    return 0;
   }
 
   int result = load_maze(argv[2], &maze);
