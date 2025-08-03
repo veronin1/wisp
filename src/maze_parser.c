@@ -97,3 +97,28 @@ void print_maze(const Maze* maze) {
     putchar('\n');
   }
 }
+
+void maze_to_file(const Maze* maze, const char* location) {
+  FILE* mazeFile = fopen(location, "w");
+  if (!mazeFile) {
+    return;
+  }
+
+  for (size_t i = 0; i < maze->height; ++i) {
+    for (size_t j = 0; j < maze->width; ++j) {
+      const Vertex* cell = &maze->grid[i][j];
+      if (maze->start == cell) {
+        fputc('S', mazeFile);
+      } else if (maze->end == cell) {
+        fputc('E', mazeFile);
+      } else if (cell->is_wall) {
+        fputc('#', mazeFile);
+      } else {
+        fputc(' ', mazeFile);
+      }
+    }
+    fputc('\n', mazeFile);
+  }
+
+  fclose(mazeFile);
+}
