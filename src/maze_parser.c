@@ -106,19 +106,18 @@ void maze_to_file(const Maze* maze, const char* location) {
 
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
-      if (maze->start == &maze->grid[i][j]) {
-        fprintf(mazeFile, "S");
-      } else if (maze->end == &maze->grid[i][j]) {
-        fprintf(mazeFile, "E");
-      }
-      z if (maze->grid[i][j].is_wall) {
-        fprintf(mazeFile, "#");
-      }
-      else {
-        fprintf(mazeFile, " ");
+      const Vertex* cell = &maze->grid[i][j];
+      if (maze->start == cell) {
+        fputc('S', mazeFile);
+      } else if (maze->end == cell) {
+        fputc('E', mazeFile);
+      } else if (cell->is_wall) {
+        fputc('#', mazeFile);
+      } else {
+        fputc(' ', mazeFile);
       }
     }
-    fprintf(mazeFile, "\n");
+    fputc('\n', mazeFile);
   }
 
   fclose(mazeFile);
