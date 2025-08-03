@@ -17,23 +17,24 @@ const char* algorithms[3] = {"-bfs", "-dfs", "-dijkstra"};
 const size_t algorithmsSize = 3;
 
 int main(int argc, char* argv[]) {
-  if (!validate_input(argc, argv)) {
+  if (validate_input(argc, argv) != 0) {
     return 1;
   }
 
   Maze maze = {0};
+
+  if (strcmp(argv[1], "-gen") == 0) {
+    const size_t mazeSize = (size_t)argv[2];
+    maze = dfs_maze_generate(mazeSize);
+    reset_visited(&maze);
+  }
+
   int result = load_maze(argv[2], &maze);
   if (result != 0) {
     printf("Failed to load maze from file '%s' with error code %d\n", argv[2],
            result);
     return 2;
   }
-
-  /*
-  const size_t mazeSize = 25;
-  Maze maze = dfs_maze_generate(mazeSize);
-  reset_visited(&maze);
-  */
 
   if (strcmp(argv[1], "-bfs") == 0) {
     if (bfs(&maze)) {
