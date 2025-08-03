@@ -85,24 +85,41 @@ int main(int argc, char* argv[]) {
 
 int validate_input(int argc, char* argv[]) {
   if (argc < 3) {
-    printf("Usage: %s ( -bfs | -dfs | -dijkstra) <maze_file>\n", argv[0]);
+    printf("Usage:\n");
+    printf("  %s ( -bfs | -dfs | -dijkstra) <maze_file>\n", argv[0]);
+    printf("  %s -gen <size> <maze_file>\n", argv[0]);
     return 0;
   }
 
   char* type = argv[1];
-  if ((strcmp(type, "-bfs") != 0) && (strcmp(type, "-dfs") != 0) &&
-      (strcmp(type, "-dijkstra") != 0)) {
-    printf("Invalid search type. Use -bfs, -dfs or -dijkstra.\n");
-    return 0;
-  }
-  if (strcmp(type, "-gen") == 0) {
-    char* sizeOfMaze = argv[2];
 
-    for (size_t i = 0, argv2Length = strlen(sizeOfMaze); i < argv2Length; ++i) {
-      if (!isdigit(sizeOfMaze[i])) {
+  if (strcmp(type, "-gen") == 0) {
+    if (argc != 4) {
+      printf("Usage: %s -gen <size> <file_to_create>", argv[0]);
+      return 0;
+    }
+
+    char* sizeOfMaze = argv[2];
+    for (size_t i = 0; sizeOfMaze[i]; ++i) {
+      if (!isdigit((unsigned int)sizeOfMaze[i])) {
+        printf("Error: Size must be a positive number");
         return 0;
       }
     }
+
+    return 1;
   }
-  return 1;
+
+  if (strcmp(type, "-bfs") == 0 || strcmp(type, "-dfs") == 0 ||
+      strcmp(type, "-dijkstra") == 0) {
+    if (argc != 3) {
+      printf("Error: %s requires one argument (maze file).\n", type);
+      return 0;
+    }
+
+    return 1;
+  }
+
+  printf("Invalid command. Use -bfs, -dfs, -dijkstra or -gen");
+  return 0;
 }
