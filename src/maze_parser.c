@@ -97,7 +97,3 @@ void print_maze(const Maze* maze) {
     putchar('\n');
   }
 }
-
-void maze_to_file(const Maze* maze) {
-  return;
-}
