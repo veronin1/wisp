@@ -88,7 +88,7 @@ int validate_input(int argc, char* argv[]) {
     printf("Usage:\n");
     printf("  %s ( -bfs | -dfs | -dijkstra) <maze_file>\n", argv[0]);
     printf("  %s -gen <size> <maze_file>\n", argv[0]);
-    return 0;
+    return 1;
   }
 
   char* type = argv[1];
@@ -97,18 +97,18 @@ int validate_input(int argc, char* argv[]) {
   if (strcmp(type, "-gen") == 0) {
     if (argc != 4) {
       printf("Usage: %s -gen <size> <file_to_create>", argv[0]);
-      return 0;
+      return 1;
     }
 
     char* sizeOfMaze = argv[2];
     for (size_t i = 0; sizeOfMaze[i]; ++i) {
       if (!isdigit((unsigned int)sizeOfMaze[i])) {
         printf("Error: Size must be a positive number");
-        return 0;
+        return 1;
       }
     }
 
-    return 1;
+    return 0;
   }
 
   // Searching algorithms
@@ -116,12 +116,12 @@ int validate_input(int argc, char* argv[]) {
       strcmp(type, "-dijkstra") == 0) {
     if (argc != 3) {
       printf("Error: %s requires one argument (maze file).\n", type);
-      return 0;
+      return 1;
     }
 
-    return 1;
+    return 0;
   }
 
   printf("Invalid command. Use -bfs, -dfs, -dijkstra or -gen");
-  return 0;
+  return 1;
 }
