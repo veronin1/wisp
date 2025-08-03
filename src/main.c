@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -5,6 +6,7 @@
 #include "dfs.h"
 #include "dijkstra.h"
 #include "globals.h"
+#include "maze.h"
 #include "maze_generator.h"
 #include "maze_parse.h"
 #include "retrace_path.h"
@@ -70,6 +72,7 @@ int main(int argc, char* argv[]) {
           printf("Total Steps Taken %zu\n", totalSteps);
           printf("Found Path Steps: %zu\n", pathSteps);
           printf("=== Solution ===\n");
+          print_maze(&maze);
         }
       } else {
         printf("No path found\n");
@@ -81,17 +84,25 @@ int main(int argc, char* argv[]) {
 }
 
 int validate_input(int argc, char* argv[]) {
-  if (argc != 3) {
-    printf("Usage: %s ( -bfs| -dfs| -dijkstra) <maze_file>\n", argv[0]);
+  if (argc < 3) {
+    printf("Usage: %s ( -bfs | -dfs | -dijkstra) <maze_file>\n", argv[0]);
     return 0;
   }
 
   char* type = argv[1];
-
   if ((strcmp(type, "-bfs") != 0) && (strcmp(type, "-dfs") != 0) &&
       (strcmp(type, "-dijkstra") != 0)) {
     printf("Invalid search type. Use -bfs, -dfs or -dijkstra.\n");
     return 0;
+  }
+  if (strcmp(type, "-gen") == 0) {
+    char* sizeOfMaze = argv[2];
+
+    for (size_t i = 0, argv2Length = strlen(sizeOfMaze); i < argv2Length; ++i) {
+      if (!isdigit(sizeOfMaze[i])) {
+        return 0;
+      }
+    }
   }
   return 1;
 }
