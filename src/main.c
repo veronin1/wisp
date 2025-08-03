@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "bfs.h"
@@ -24,7 +25,7 @@ int main(int argc, char* argv[]) {
   Maze maze = {0};
 
   if (strcmp(argv[1], "-gen") == 0) {
-    const size_t mazeSize = (size_t)argv[2];
+    const size_t mazeSize = (size_t)strtoull(argv[2], NULL, 10);
     maze = dfs_maze_generate(mazeSize);
     maze_to_file(&maze, argv[3]);
     reset_visited(&maze);
