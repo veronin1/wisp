@@ -5,5 +5,6 @@
 
 int load_maze(const char *filename, Maze *maze);
 void print_maze(const Maze *maze);
+void maze_to_file(const Maze* maze, const char* location);
 
 #endif
