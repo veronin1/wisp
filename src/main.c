@@ -26,6 +26,7 @@ int main(int argc, char* argv[]) {
   if (strcmp(argv[1], "-gen") == 0) {
     const size_t mazeSize = (size_t)argv[2];
     maze = dfs_maze_generate(mazeSize);
+    maze_to_file(&maze, argv[3]);
     reset_visited(&maze);
     return 0;
   }
