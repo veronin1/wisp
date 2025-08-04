@@ -13,7 +13,7 @@ typedef struct AStar {
   int g_score;
   int h_score;
   int f_score;
-  struct AStar* parent;
+  Vertex* parent;
   Vertex* vertex;
 } AStar;
 
@@ -77,7 +77,8 @@ int a_star(Maze* maze) {
         if (tentative_gScore < neighbour->g_score) {
           neighbour->g_score = tentative_gScore;
           neighbour->f_score = tentative_gScore + neighbour->h_score;
-          neighbour->parent = currentStarNode;
+          neighbour->parent = current;
+          neighbour_vertex->parent = current;
           heapPush(&open_set, neighbour_vertex, neighbour->f_score);
         }
       }
