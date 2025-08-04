@@ -5,8 +5,8 @@
 
 #define MAX_HEAP_SIZE (MAX_WIDTH * MAX_HEIGHT)
 
-#define HEAP_SUCCESS 1
-#define HEAP_FAILURE 0
+#define HEAP_SUCCESS 0
+#define HEAP_FAILURE -1
 
 typedef struct {
   Vertex *vertex;
