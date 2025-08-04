@@ -16,7 +16,6 @@ typedef struct {
   Vertex* parent;
 } AStar;
 
-int heuristic[MAX_HEIGHT][MAX_WIDTH];
 AStar a_star_node[MAX_HEIGHT][MAX_WIDTH];
 
 int a_star(Maze* maze) {
@@ -30,13 +29,15 @@ int a_star(Maze* maze) {
       current->h_score = calculate_heuristic(&maze->grid[i][j], maze->end);
       current->f_score = INT_MAX;
       current->parent = NULL;
+      maze->grid[i][j].visited = 0;
     }
   }
 
+  size_t startY = maze->start->y;
+  size_t startX = maze->start->x;
   a_star_node[maze->start->y][maze->start->x].g_score = 0;
-  int f_score_start = a_star_node[maze->start->y][maze->start->x].g_score +
-                      a_star_node[maze->start->y][maze->start->x].h_score;
-  heapPush(&open_set, maze->start, f_score_start);
+  a_star_node[startY][startX].f_score = a_star_node[startY][startX].h_score;
+  heapPush(&open_set, maze->start, a_star_node[startY][startX].f_score);
 
   while (open_set.size != 0) {
     HeapNode current_node = extract_min(&open_set);
@@ -46,19 +47,23 @@ int a_star(Maze* maze) {
       return A_STAR_SUCCESS;
     }
 
-    if (current->is_wall || current->visited) {
+    if (current->visited) {
       continue;
     }
-
     current->visited = 1;
     ++totalSteps;
 
     for (size_t i = 0; i < 4; ++i) {
-      int neighbourX = (int)current_node.vertex->x + directionX[i];
-      int neighbourY = (int)current_node.vertex->y + directionY[i];
+      int neighbourX = (int)current->x + directionX[i];
+      int neighbourY = (int)current->y + directionY[i];
 
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
+        Vertex* neighbour_vertex = &maze->grid[neighbourY][neighbourX];
+        if (neighbour_vertex->is_wall || neighbour_vertex->visited) {
+          continue;
+        }
+
         AStar* neighbour = &a_star_node[neighbourY][neighbourX];
 
         int tentative_gScore = a_star_node[current->y][current->x].g_score + 1;
@@ -66,8 +71,7 @@ int a_star(Maze* maze) {
           neighbour->g_score = tentative_gScore;
           neighbour->f_score = tentative_gScore + neighbour->h_score;
           neighbour->parent = current;
-          heapPush(&open_set, &maze->grid[neighbourY][neighbourX],
-                   neighbour->f_score);
+          heapPush(&open_set, neighbour_vertex, neighbour->f_score);
         }
       }
     }
