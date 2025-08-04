@@ -11,6 +11,7 @@ static int directionY[4] = {-1, 1, 0, 0};
 typedef struct {
   int g_score;
   int h_score;
+  int f_score;
   Vertex* parent;
 } AStar;
 
@@ -26,6 +27,7 @@ int a_star(Maze* maze) {
       AStar current = a_star_node[i][j];
       current.g_score = INT_MAX;
       current.h_score = calculate_heuristic(&maze->grid[i][j], maze->end);
+      current.f_score = INT_MAX;
       current.parent = NULL;
     }
   }
@@ -49,7 +51,13 @@ int a_star(Maze* maze) {
 
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
-        Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
+        int tentative_gScore = a_star_node[current->y][current->x].g_score + 1;
+        if (tentative_gScore < a_star_node[neighbourY][neighbourX].g_score) {
+          a_star_node[neighbourY][neighbourX].g_score = tentative_gScore;
+          a_star_node[neighbourY][neighbourX].f_score =
+              tentative_gScore + a_star_node[neighbourY][neighbourX].h_score;
+          a_star_node[neighbourY][neighbourX].parent = current;
+        }
       }
     }
   }
