@@ -5,13 +5,17 @@
 #include <limits.h>
 #include <stdlib.h>
 
-int distance[MAX_HEIGHT][MAX_WIDTH];
-int heuristic[MAX_HEIGHT][MAX_WIDTH];
+static int directionX[4] = {0, 0, -1, 1};
+static int directionY[4] = {-1, 1, 0, 0};
 
 typedef struct {
   int g_score;
   int h_score;
 } AStar;
+
+int distance[MAX_HEIGHT][MAX_WIDTH];
+int heuristic[MAX_HEIGHT][MAX_WIDTH];
+AStar node[MAX_HEIGHT][MAX_WIDTH];
 
 int a_star(Maze* maze) {
   MinHeap open_set;
@@ -28,10 +32,30 @@ int a_star(Maze* maze) {
   heapPush(&open_set, maze->start, h);
 
   while (open_set.size != 0) {
-    HeapNode current = extract_min(&open_set);
+    HeapNode current_node = extract_min(&open_set);
+    Vertex* current = current_node.vertex;
+
+    if (current == maze->end) {
+      return A_STAR_SUCCESS;
+    }
+
+    for (size_t i = 0; i < 4; ++i) {
+      int neighbourX = (int)current_node.vertex->x + directionX[i];
+      int neighbourY = (int)current_node.vertex->y + directionY[i];
+
+      if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
+          neighbourY < (int)maze->height) {
+        Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
+
+        /* first 1 (distance to the current node)
+         * second 1 (cost of moving between 2 nodes (unweighted so 1));
+         */
+        int tentative_gScore = 1 + 1;
+      }
+    }
   }
 
-  return A_STAR_SUCCESS;
+  return A_STAR_FAILURE;
 }
 
 // use manhattan distance (taxicab distance)
