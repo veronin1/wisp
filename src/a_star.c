@@ -9,14 +9,19 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-typedef struct {
+typedef struct AStar {
   int g_score;
   int h_score;
   int f_score;
-  Vertex* parent;
+  struct AStar* parent;
+  Vertex* vertex;
 } AStar;
 
 AStar a_star_node[MAX_HEIGHT][MAX_WIDTH];
+
+int calculate_heuristic(Vertex* start, Vertex* end) {
+  return abs((int)start->x - (int)end->x) + abs((int)start->y - (int)end->y);
+}
 
 int a_star(Maze* maze) {
   MinHeap open_set;
@@ -35,7 +40,8 @@ int a_star(Maze* maze) {
 
   size_t startY = maze->start->y;
   size_t startX = maze->start->x;
-  a_star_node[maze->start->y][maze->start->x].g_score = 0;
+
+  a_star_node[startY][startX].g_score = 0;
   a_star_node[startY][startX].f_score = a_star_node[startY][startX].h_score;
   heapPush(&open_set, maze->start, a_star_node[startY][startX].f_score);
 
@@ -64,13 +70,14 @@ int a_star(Maze* maze) {
           continue;
         }
 
+        AStar* currentStarNode = &a_star_node[current->y][current->x];
         AStar* neighbour = &a_star_node[neighbourY][neighbourX];
 
-        int tentative_gScore = a_star_node[current->y][current->x].g_score + 1;
+        int tentative_gScore = currentStarNode->g_score + 1;
         if (tentative_gScore < neighbour->g_score) {
           neighbour->g_score = tentative_gScore;
           neighbour->f_score = tentative_gScore + neighbour->h_score;
-          neighbour->parent = current;
+          neighbour->parent = currentStarNode;
           heapPush(&open_set, neighbour_vertex, neighbour->f_score);
         }
       }
@@ -78,9 +85,4 @@ int a_star(Maze* maze) {
   }
 
   return A_STAR_FAILURE;
-}
-
-// use manhattan distance (taxicab distance)
-int calculate_heuristic(Vertex* start, Vertex* end) {
-  return abs((int)start->x - (int)end->x) + abs((int)start->y - (int)end->y);
 }
