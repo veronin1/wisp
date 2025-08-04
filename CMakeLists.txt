@@ -21,6 +21,8 @@ add_executable(wisp
     src/dfs.c
     src/bfs.c
     src/dijkstra.c
+    src/a_star.c
+    src/min_heap.c
 )
 
 # Include directory
