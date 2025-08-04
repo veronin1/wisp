@@ -11,11 +11,11 @@ static int directionY[4] = {-1, 1, 0, 0};
 typedef struct {
   int g_score;
   int h_score;
+  Vertex* parent;
 } AStar;
 
-int distance[MAX_HEIGHT][MAX_WIDTH];
 int heuristic[MAX_HEIGHT][MAX_WIDTH];
-AStar node[MAX_HEIGHT][MAX_WIDTH];
+AStar a_star_node[MAX_HEIGHT][MAX_WIDTH];
 
 int a_star(Maze* maze) {
   MinHeap open_set;
@@ -23,7 +23,10 @@ int a_star(Maze* maze) {
 
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
-      distance[i][j] = INT_MAX;
+      AStar current = a_star_node[i][j];
+      current.g_score = INT_MAX;
+      current.h_score = calculate_heuristic(&maze->grid[i][j], maze->end);
+      current.parent = NULL;
     }
   }
 
@@ -34,6 +37,8 @@ int a_star(Maze* maze) {
   while (open_set.size != 0) {
     HeapNode current_node = extract_min(&open_set);
     Vertex* current = current_node.vertex;
+
+    node[current->y][current->x].g_score = 1;
 
     if (current == maze->end) {
       return A_STAR_SUCCESS;
@@ -50,7 +55,9 @@ int a_star(Maze* maze) {
         /* first 1 (distance to the current node)
          * second 1 (cost of moving between 2 nodes (unweighted so 1));
          */
-        int tentative_gScore = 1 + 1;
+        int tentative_gScore = node[current->y][current->x].g_score + 1;
+        node[neighbourY][neighbourY].g_score =
+            node[current->y][current->x].g_score + tentative_gScore;
       }
     }
   }
