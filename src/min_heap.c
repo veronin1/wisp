@@ -61,12 +61,12 @@ void heapify_up(MinHeap* heap, size_t index) {
 
 int heapPush(MinHeap* heap, Vertex* vertex, int distance) {
   if ((int)heap->size == MAX_HEAP_SIZE) {
-    return DIJKSTRA_FAILURE;
+    return HEAP_FAILURE;
   }
 
   heap->data[heap->size].vertex = vertex;
   heap->data[heap->size].priority = distance;
   heapify_up(heap, heap->size);
   heap->size++;
-  return DIJKSTRA_SUCCESS;
+  return HEAP_SUCCESS;
 }
