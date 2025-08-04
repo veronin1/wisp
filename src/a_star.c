@@ -1,4 +1,5 @@
 #include "a_star.h"
+#include "globals.h"
 #include "maze.h"
 #include "min_heap.h"
 
@@ -50,6 +51,7 @@ int a_star(Maze* maze) {
     }
 
     current->visited = 1;
+    ++totalSteps;
 
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current_node.vertex->x + directionX[i];
