@@ -24,11 +24,11 @@ int a_star(Maze* maze) {
 
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
-      AStar current = a_star_node[i][j];
-      current.g_score = INT_MAX;
-      current.h_score = calculate_heuristic(&maze->grid[i][j], maze->end);
-      current.f_score = INT_MAX;
-      current.parent = NULL;
+      AStar* current = &a_star_node[i][j];
+      current->g_score = INT_MAX;
+      current->h_score = calculate_heuristic(&maze->grid[i][j], maze->end);
+      current->f_score = INT_MAX;
+      current->parent = NULL;
     }
   }
 
