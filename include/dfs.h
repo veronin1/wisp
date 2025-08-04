@@ -3,6 +3,9 @@
 
 #include "maze.h"
 
+#define DFS_SUCCESS 0
+#define DFS_FAILURE -1
+
 typedef struct {
   Vertex *data[MAX_WIDTH * MAX_HEIGHT];
   size_t top;
@@ -10,6 +13,6 @@ typedef struct {
 
 int dfs(Maze *maze);
 Vertex *pop(VertexStack *stack);
-void push(VertexStack *stack, Vertex *value);
+int push(VertexStack *stack, Vertex *value);
 
-#endif
+#endif // DFS.H

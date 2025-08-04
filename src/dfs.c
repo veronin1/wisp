@@ -2,9 +2,6 @@
 #include "globals.h"
 #include "maze.h"
 
-#define DFS_SUCCESS 1
-#define DFS_FAILURE 0
-
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
@@ -52,15 +49,21 @@ Vertex* pop(VertexStack* stack) {
   return top;
 }
 
-void push(VertexStack* stack, Vertex* value) {
+int push(VertexStack* stack, Vertex* value) {
   if (!stack) {
-    return;
+    return DFS_FAILURE;
+  }
+
+  if (value == NULL) {
+    return DFS_FAILURE;
   }
 
   if (stack->top >= (size_t)MAX_WIDTH * MAX_HEIGHT) {
-    return;
+    return DFS_FAILURE;
   }
 
   stack->data[stack->top] = value;
   stack->top++;
+
+  return DFS_SUCCESS;
 }

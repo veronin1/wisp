@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "a_star.h"
 #include "bfs.h"
 #include "dfs.h"
 #include "dijkstra.h"
@@ -14,8 +15,8 @@
 
 int validate_input(int argc, char* argv[]);
 
-const char* algorithms[3] = {"-bfs", "-dfs", "-dijkstra"};
-const size_t algorithmsSize = 3;
+const char* algorithms[4] = {"-bfs", "-dfs", "-dijkstra", "-astar"};
+const size_t algorithmsSize = 4;
 
 int main(int argc, char* argv[]) {
   if (validate_input(argc, argv) != 0) {
@@ -40,7 +41,7 @@ int main(int argc, char* argv[]) {
   }
 
   if (strcmp(argv[1], "-bfs") == 0) {
-    if (bfs(&maze)) {
+    if (!bfs(&maze)) {
       if (maze.end != NULL) {
         size_t pathSteps = retrace_path(maze.end, &maze);
         if (totalSteps >= 0) {
@@ -54,7 +55,7 @@ int main(int argc, char* argv[]) {
       printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dfs") == 0) {
-    if (dfs(&maze)) {
+    if (!dfs(&maze)) {
       if (maze.end != NULL) {
         size_t pathSteps = retrace_path(maze.end, &maze);
         if (totalSteps >= 0) {
@@ -66,13 +67,31 @@ int main(int argc, char* argv[]) {
       } else {
         printf("No path found\n");
       }
+    } else {
+      printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dijkstra") == 0) {
-    if (dijkstra(&maze)) {
+    if (!dijkstra(&maze)) {
       if (maze.end != NULL) {
         size_t pathSteps = retrace_path(maze.end, &maze);
         if (totalSteps >= 0) {
           printf("=== DIJKSTRA ===\n");
+          printf("Total Steps Taken %zu\n", totalSteps);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+        }
+      } else {
+        printf("No path found\n");
+      }
+    } else {
+      printf("No path found\n");
+    }
+  } else if (strcmp(argv[1], "-astar") == 0) {
+    if (!a_star(&maze)) {
+      if (maze.end != NULL) {
+        size_t pathSteps = retrace_path(maze.end, &maze);
+        if (totalSteps >= 0) {
+          printf("=== A* ===\n");
           printf("Total Steps Taken %zu\n", totalSteps);
           printf("Found Path Steps: %zu\n", pathSteps);
           printf("=== Solution ===\n");
@@ -81,16 +100,18 @@ int main(int argc, char* argv[]) {
       } else {
         printf("No path found\n");
       }
+    } else {
+      printf("No path found\n");
     }
-
-    return 0;
   }
+
+  return 0;
 }
 
 int validate_input(int argc, char* argv[]) {
   if (argc < 3) {
     printf("Usage:\n");
-    printf("  %s ( -bfs | -dfs | -dijkstra) <maze_file>\n", argv[0]);
+    printf("  %s ( -bfs | -dfs | -dijkstra | -astar ) <maze_file>\n", argv[0]);
     printf("  %s -gen <size> <maze_file>\n", argv[0]);
     return 1;
   }
@@ -117,7 +138,7 @@ int validate_input(int argc, char* argv[]) {
 
   // Searching algorithms
   if (strcmp(type, "-bfs") == 0 || strcmp(type, "-dfs") == 0 ||
-      strcmp(type, "-dijkstra") == 0) {
+      strcmp(type, "-dijkstra") == 0 || strcmp(type, "-astar") == 0) {
     if (argc != 3) {
       printf("Error: %s requires one argument (maze file).\n", type);
       return 1;
@@ -126,6 +147,6 @@ int validate_input(int argc, char* argv[]) {
     return 0;
   }
 
-  printf("Invalid command. Use -bfs, -dfs, -dijkstra or -gen");
+  printf("Invalid command. Use -bfs, -dfs, -dijkstra, -astar or -gen");
   return 1;
 }

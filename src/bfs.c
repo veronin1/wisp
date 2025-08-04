@@ -5,9 +5,6 @@
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
 
-#define BFS_SUCCESS 1
-#define BFS_FAILURE 0
-
 int bfs(Maze* maze) {
   VertexQueue queue;
   queue.front = 0;
@@ -59,9 +56,9 @@ Vertex* dequeue(VertexQueue* queue) {
   return front;
 }
 
-void enqueue(VertexQueue* queue, Vertex* element) {
+int enqueue(VertexQueue* queue, Vertex* element) {
   if (queue->size == queue->capacity) {
-    return;
+    return BFS_FAILURE;
   }
 
   if (queue->size == 0) {
@@ -72,6 +69,7 @@ void enqueue(VertexQueue* queue, Vertex* element) {
 
   queue->data[queue->rear] = element;
   queue->size++;
+  return BFS_SUCCESS;
 }
 
 void reset_visited(Maze* maze) {
