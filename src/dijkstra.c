@@ -1,13 +1,9 @@
 #include "dijkstra.h"
 #include "globals.h"
 #include "maze.h"
+#include "min_heap.h"
 
 #include <limits.h>
-
-#define MAX_HEAP_SIZE (MAX_WIDTH * MAX_HEIGHT)
-
-#define DIJKSTRA_SUCCESS 1
-#define DIJKSTRA_FAILURE 0
 
 static int directionX[4] = {0, 0, -1, 1};
 static int directionY[4] = {-1, 1, 0, 0};
@@ -24,7 +20,7 @@ int dijkstra(Maze* maze) {
   MinHeap heap;
   heap.size = 0;
 
-  // for each vertex  v in Graph
+  // for each vertex v in Graph
   for (size_t i = 0; i < maze->height; ++i) {
     for (size_t j = 0; j < maze->width; ++j) {
       if (&maze->grid[i][j] != maze->start) {
