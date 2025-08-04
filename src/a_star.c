@@ -30,9 +30,10 @@ int a_star(Maze* maze) {
     }
   }
 
-  distance[maze->start->y][maze->start->x] = 0;
-  int h = calculate_heuristic(maze->start, maze->end);
-  heapPush(&open_set, maze->start, h);
+  a_star_node[maze->start->y][maze->start->x].g_score = 0;
+  int f_score_start = a_star_node[maze->start->y][maze->start->x].g_score +
+                      a_star_node[maze->start->y][maze->start->x].h_score;
+  heapPush(&open_set, maze->start, f_score_start);
 
   while (open_set.size != 0) {
     HeapNode current_node = extract_min(&open_set);
