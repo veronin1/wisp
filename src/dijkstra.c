@@ -38,7 +38,7 @@ int dijkstra(Maze* maze) {
 
   while (heap.size != 0) {
     HeapNode minNode = extract_min(&heap);
-    if (minNode.distance > dist[minNode.vertex->y][minNode.vertex->x]) {
+    if (minNode.priority > dist[minNode.vertex->y][minNode.vertex->x]) {
       continue;
     }
 
@@ -105,12 +105,12 @@ void heapify_down(MinHeap* heap, size_t index) {
     size_t selected = index;
 
     if (leftChild < heap->size &&
-        heap->data[leftChild].distance < heap->data[selected].distance) {
+        heap->data[leftChild].priority < heap->data[selected].priority) {
       selected = leftChild;
     }
 
     if (rightChild < heap->size &&
-        heap->data[rightChild].distance < heap->data[selected].distance) {
+        heap->data[rightChild].priority < heap->data[selected].priority) {
       selected = rightChild;
     }
 
@@ -133,7 +133,7 @@ void heapify_up(MinHeap* heap, size_t index) {
 
   while (index > 0) {
     size_t parent = (index - 1) / 2;
-    if (heap->data[index].distance < heap->data[parent].distance) {
+    if (heap->data[index].priority < heap->data[parent].priority) {
       HeapNode tmp = heap->data[index];
       heap->data[index] = heap->data[parent];
       heap->data[parent] = tmp;
@@ -150,7 +150,7 @@ int heapPush(MinHeap* heap, Vertex* vertex, int distance) {
   }
 
   heap->data[heap->size].vertex = vertex;
-  heap->data[heap->size].distance = distance;
+  heap->data[heap->size].priority = distance;
   heapify_up(heap, heap->size);
   heap->size++;
   return DIJKSTRA_SUCCESS;
