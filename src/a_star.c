@@ -51,15 +51,15 @@ int a_star(Maze* maze) {
 
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
-        AStar neighbour = a_star_node[neighbourY][neighbourX];
+        AStar* neighbour = &a_star_node[neighbourY][neighbourX];
 
         int tentative_gScore = a_star_node[current->y][current->x].g_score + 1;
-        if (tentative_gScore < neighbour.g_score) {
-          neighbour.g_score = tentative_gScore;
-          neighbour.f_score = tentative_gScore + neighbour.h_score;
-          neighbour.parent = current;
+        if (tentative_gScore < neighbour->g_score) {
+          neighbour->g_score = tentative_gScore;
+          neighbour->f_score = tentative_gScore + neighbour->h_score;
+          neighbour->parent = current;
           heapPush(&open_set, &maze->grid[neighbourY][neighbourX],
-                   neighbour.f_score);
+                   neighbour->f_score);
         }
       }
     }
