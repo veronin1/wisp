@@ -61,7 +61,7 @@ int dijkstra(Maze* maze) {
         }
 
         // 1 as maze is unweighted
-        int alt = minNode.distance + 1;
+        int alt = minNode.priority + 1;
         if (alt < dist[neighbourY][neighbourX]) {
           prev[neighbourY][neighbourX].x = (int)minNode.vertex->x;
           prev[neighbourY][neighbourX].y = (int)minNode.vertex->y;
