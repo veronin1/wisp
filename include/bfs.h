@@ -3,6 +3,9 @@
 
 #include "maze.h"
 
+#define BFS_SUCCESS 0
+#define BFS_FAILURE -1
+
 typedef struct {
   Vertex *data[MAX_WIDTH * MAX_HEIGHT];
   size_t front;
@@ -13,6 +16,7 @@ typedef struct {
 
 int bfs(Maze *maze);
 Vertex *dequeue(VertexQueue *queue);
-void enqueue(VertexQueue *queue, Vertex *element);
+int enqueue(VertexQueue *queue, Vertex *element);
 void reset_visited(Maze *maze);
-#endif
+
+#endif // BFS.H
