@@ -58,6 +58,8 @@ int a_star(Maze* maze) {
           neighbour.g_score = tentative_gScore;
           neighbour.f_score = tentative_gScore + neighbour.h_score;
           neighbour.parent = current;
+          heapPush(&open_set, &maze->grid[neighbourY][neighbourX],
+                   neighbour.f_score);
         }
       }
     }
