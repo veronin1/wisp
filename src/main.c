@@ -77,7 +77,6 @@ int main(int argc, char* argv[]) {
           printf("Total Steps Taken %zu\n", totalSteps);
           printf("Found Path Steps: %zu\n", pathSteps);
           printf("=== Solution ===\n");
-          print_maze(&maze);
         }
       } else {
         printf("No path found\n");
@@ -91,7 +90,6 @@ int main(int argc, char* argv[]) {
             printf("Total Steps Taken %zu\n", totalSteps);
             printf("Found Path Steps: %zu\n", pathSteps);
             printf("=== Solution ===\n");
-            print_maze(&maze);
           }
         }
       }
