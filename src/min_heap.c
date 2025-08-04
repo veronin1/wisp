@@ -59,13 +59,13 @@ void heapify_up(MinHeap* heap, size_t index) {
   }
 }
 
-int heapPush(MinHeap* heap, Vertex* vertex, int distance) {
+int heapPush(MinHeap* heap, Vertex* vertex, int priority) {
   if ((int)heap->size == MAX_HEAP_SIZE) {
     return HEAP_FAILURE;
   }
 
   heap->data[heap->size].vertex = vertex;
-  heap->data[heap->size].priority = distance;
+  heap->data[heap->size].priority = priority);
   heapify_up(heap, heap->size);
   heap->size++;
   return HEAP_SUCCESS;

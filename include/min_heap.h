@@ -19,9 +19,9 @@ typedef struct {
 } MinHeap;
 
 HeapNode extract_min(MinHeap *heap);
-void decrease_priority(Vertex* vertex, int distance);
+void decrease_priority(Vertex* vertex, int priority);
 void heapify_down(MinHeap *heap, size_t index);
 void heapify_up(MinHeap *heap, size_t index);
-int heapPush(MinHeap *heap, Vertex* vertex, int distance);
+int heapPush(MinHeap *heap, Vertex* vertex, int priority);
 
 #endif // MIN_HEAP.H
