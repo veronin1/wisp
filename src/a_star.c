@@ -39,8 +39,6 @@ int a_star(Maze* maze) {
     HeapNode current_node = extract_min(&open_set);
     Vertex* current = current_node.vertex;
 
-    node[current->y][current->x].g_score = 1;
-
     if (current == maze->end) {
       return A_STAR_SUCCESS;
     }
@@ -52,13 +50,6 @@ int a_star(Maze* maze) {
       if (neighbourX >= 0 && neighbourX < (int)maze->width && neighbourY >= 0 &&
           neighbourY < (int)maze->height) {
         Vertex* neighbour = &maze->grid[neighbourY][neighbourX];
-
-        /* first 1 (distance to the current node)
-         * second 1 (cost of moving between 2 nodes (unweighted so 1));
-         */
-        int tentative_gScore = node[current->y][current->x].g_score + 1;
-        node[neighbourY][neighbourY].g_score =
-            node[current->y][current->x].g_score + tentative_gScore;
       }
     }
   }
