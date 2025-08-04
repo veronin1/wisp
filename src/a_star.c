@@ -45,6 +45,12 @@ int a_star(Maze* maze) {
       return A_STAR_SUCCESS;
     }
 
+    if (current->is_wall || current->visited) {
+      continue;
+    }
+
+    current->visited = 1;
+
     for (size_t i = 0; i < 4; ++i) {
       int neighbourX = (int)current_node.vertex->x + directionX[i];
       int neighbourY = (int)current_node.vertex->y + directionY[i];
