@@ -65,7 +65,7 @@ int heapPush(MinHeap* heap, Vertex* vertex, int priority) {
   }
 
   heap->data[heap->size].vertex = vertex;
-  heap->data[heap->size].priority = priority);
+  heap->data[heap->size].priority = priority;
   heapify_up(heap, heap->size);
   heap->size++;
   return HEAP_SUCCESS;
