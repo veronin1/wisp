@@ -67,6 +67,8 @@ int main(int argc, char* argv[]) {
       } else {
         printf("No path found\n");
       }
+    } else {
+      printf("No path found\n");
     }
   } else if (strcmp(argv[1], "-dijkstra") == 0) {
     if (!dijkstra(&maze)) {
@@ -81,21 +83,29 @@ int main(int argc, char* argv[]) {
       } else {
         printf("No path found\n");
       }
-    } else if (strcmp(argv[1], "-astar") == 0) {
-      if (!a_star(&maze)) {
-        if (maze.end != NULL) {
-          size_t pathSteps = retrace_path(maze.end, &maze);
-          if (totalSteps >= 0) {
-            printf("=== A* ===\n");
-            printf("Total Steps Taken %zu\n", totalSteps);
-            printf("Found Path Steps: %zu\n", pathSteps);
-            printf("=== Solution ===\n");
-          }
-        }
-      }
+    } else {
+      printf("No path found\n");
     }
-    return 0;
+  } else if (strcmp(argv[1], "-astar") == 0) {
+    if (!a_star(&maze)) {
+      if (maze.end != NULL) {
+        size_t pathSteps = retrace_path(maze.end, &maze);
+        if (totalSteps >= 0) {
+          printf("=== A* ===\n");
+          printf("Total Steps Taken %zu\n", totalSteps);
+          printf("Found Path Steps: %zu\n", pathSteps);
+          printf("=== Solution ===\n");
+          print_maze(&maze);
+        }
+      } else {
+        printf("No path found\n");
+      }
+    } else {
+      printf("No path found\n");
+    }
   }
+
+  return 0;
 }
 
 int validate_input(int argc, char* argv[]) {
