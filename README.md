@@ -28,8 +28,8 @@
 ## Requirements
 
 -   CMake >= 3.10
--   C compiler (e.g. `clang` or `gcc`)
--   Unix-like environment recommended (Linux, macOS, WSL)
+-   C compiler (clang/gcc)
+-   Unix System (Linux, MacOS, WSL)
 
 ## Build Instructions
 
