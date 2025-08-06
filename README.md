@@ -4,7 +4,7 @@
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/oAf7IK0auHZlbtkUwObF90hYE.svg)](https://asciinema.org/a/oAf7IK0auHZlbtkUwObF90hYE)
+[![asciicast](https://asciinema.org/a/MrNvtQEON9QaFTviEielM3eb1.svg)](https://asciinema.org/a/MrNvtQEON9QaFTviEielM3eb1)
 
 ## Usage
 
